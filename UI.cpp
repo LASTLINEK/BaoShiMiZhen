@@ -1,4 +1,5 @@
-#include "UI.h"
+ï»¿#include "UI.h"
+
 
 UI::UI(QWidget *parent)
 	: QMainWindow(parent)
@@ -75,7 +76,7 @@ void UI::initIcons(int row, int column)
     initColumnBeta(icons);
 }
 
-void UI::initRowBeta(Icon*** icons)//@clh ÐÞ¸Ä³õÊ¼»¯¾ØÕóÎÞºáÏòcombo
+void UI::initRowBeta(Icon*** icons)//@clh ï¿½Þ¸Ä³ï¿½Ê¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Þºï¿½ï¿½ï¿½combo
 {
     srand((int)time(NULL));
     int newkind;
@@ -100,7 +101,7 @@ void UI::initRowBeta(Icon*** icons)//@clh ÐÞ¸Ä³õÊ¼»¯¾ØÕóÎÞºáÏòcombo
     }
 }
 
-void UI::initColumnBeta(Icon*** icons)//@clh ÐÞ¸Ä³õÊ¼»¯¾ØÕóÎÞÊúÏòcombo
+void UI::initColumnBeta(Icon*** icons)//@clh ï¿½Þ¸Ä³ï¿½Ê¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½combo
 {
     srand((int)time(NULL));
     int newkind;
@@ -135,8 +136,8 @@ void UI::swap(int row1, int column1, int row2, int column2) {
 	icons[row1][column1] = icons[row2][column2];
 	icons[row2][column2] = tmp;
     if (helper.IsValid(icons, 10, 10)) {
-		std::vector<Icon*> result1 = getPoints(row1, column1);  //»ñµÃ½»»»ÒÔºó(row1,col1)µÄ¿ÉÏû³ýµã
-		std::vector<Icon*> result2 = getPoints(row2, column2);  //»ñµÃ½»»»ÒÔºó(row2,col2)µÄ¿ÉÏû³ýµã
+		std::vector<Icon*> result1 = getPoints(row1, column1);  //ï¿½ï¿½ï¿½Ã½ï¿½ï¿½ï¿½ï¿½Ôºï¿½(row1,col1)ï¿½Ä¿ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+		std::vector<Icon*> result2 = getPoints(row2, column2);  //ï¿½ï¿½ï¿½Ã½ï¿½ï¿½ï¿½ï¿½Ôºï¿½(row2,col2)ï¿½Ä¿ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		for (int i = 0; i < result1.size(); i++) {
 			result1[i]->status = -1; 
 		}
@@ -153,7 +154,7 @@ void UI::swap(int row1, int column1, int row2, int column2) {
 std::vector<Icon*> UI::getPoints(int row, int column) {
 	std::vector<Icon*> horPoints, verPoints;
 	int  status = icons[row][column]->status;  
-	//ÏòËÄ·½Ïò±éÀú
+	//ï¿½ï¿½ï¿½Ä·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	for (int left = column - 1; left >= 0; --left) {
 		if (icons[row][left]->status == status)
 			horPoints.push_back(icons[row][left]);
@@ -190,4 +191,9 @@ std::vector<Icon*> UI::getPoints(int row, int column) {
 	if (horPoints.size() >= 2 || verPoints.size() >= 2)
 		results.push_back(icons[row][column]); 
 	return results;
+}
+
+void UI::on_orderBtn_clicked()
+{
+    v->show();
 }

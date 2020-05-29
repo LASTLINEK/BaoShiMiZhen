@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 
 #include <QtWidgets/QMainWindow>
 #include "ui_UI.h"
@@ -7,6 +7,7 @@
 #include "myhelper.h"
 //#include <QTime>
 #include <time.h>
+#include "orderview.h"
 
 class UI : public QMainWindow
 {
@@ -18,8 +19,12 @@ public slots:
 	void iconClicked();
 	void iconReleased();
 	void iconSwap(int dir);
+private slots:
+    void on_orderBtn_clicked();
+
 private:
 	Ui::UIClass ui;
+
 	Icon*** icons;
 	MyHelper helper;
 	void initIcons(int row, int column);	
@@ -28,5 +33,9 @@ private:
     void initColumnBeta(Icon***);
 	std::vector<Icon*> getPoints(int row, int column);
     //QTime time;
-	int random = 0;//Ëæ»úÊı
+	int random = 0;//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+
+
+public:
+    OrderView* v;       //æ’åç•Œé¢
 };
