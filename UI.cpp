@@ -248,3 +248,4 @@ void UI::sleep(int sleepTime)
 	while (time.elapsed() < 5000)             //等待时间流逝5秒钟
 		QCoreApplication::processEvents();
 }
+

@@ -34,8 +34,9 @@ private:
 	QEventLoop Wait;
 	//void initRowBeta(Icon***);
 	//void initColumnBeta(Icon***);
-	int m_time;//µ¹¼ÆÊ±Ê±¼ä
-	int random;//Ëæ»úÊý
+	int m_time;//ï¿½ï¿½ï¿½ï¿½Ê±Ê±ï¿½ï¿½
+	int random;//ï¿½ï¿½ï¿½ï¿½ï¿½
 	bool iswait = false;
 	QString initime;
 };
+
