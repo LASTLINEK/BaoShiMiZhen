@@ -1,3 +1,5 @@
+UI_DIR=./UI
+
 QT      += widgets
 QT      += sql
 
@@ -25,4 +27,4 @@ FORMS += \
     orderview.ui
 
 RESOURCES += \
-    images.qrc
+    UI.qrc

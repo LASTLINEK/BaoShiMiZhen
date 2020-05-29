@@ -5,13 +5,13 @@
 #include <qevent.h>
 #include <qdebug.h>
 #include <qpropertyanimation.h>
-constexpr auto ICON_WIDTH = 60;			//ͼ������
-constexpr auto ICON_HEIGHT = 60;		//ͼ���߶�
-constexpr auto UP = 8;                  //ͼ���߶�
-constexpr auto DOWN = 2;                //ͼ���߶�
-constexpr auto LEFT = 4;                //ͼ���߶�
-constexpr auto RIGHT = 6;               //ͼ���߶�
-static QString pixFileName[5] = { ":/back/k1.png", ":/back/k2.png" , ":/back/k3.png" , ":/back/k4.png" , ":/back/k5.png" };
+constexpr auto ICON_WIDTH = 60;			
+constexpr auto ICON_HEIGHT = 60;		
+constexpr auto UP = 8;		
+constexpr auto DOWN = 2;		
+constexpr auto LEFT = 4;		
+constexpr auto RIGHT = 6;		
+static QString pixFileName[6] = { "k1.png", "k2.png" , "k3.png" , "k4.png" , "k5.png","boom.png" };
 struct Data {
     int x;
     int y;
@@ -36,7 +36,7 @@ public:
     int column;
     int row;
     int status;
-    int iconkind;
+	int iconkind;
     Icon(QWidget * parent, Data d);
     ~Icon() {};
     void swapWith(Icon* i);

@@ -249,3 +249,7 @@ void UI::sleep(int sleepTime)
 		QCoreApplication::processEvents();
 }
 
+void UI::on_orderBtn_clicked()
+{
+    v->show();
+}

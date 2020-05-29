@@ -8,6 +8,7 @@
 #include <QTime>  
 #include <QTimer>
 #include<QEventloop>
+#include "orderview.h"
 
 class UI : public QMainWindow
 {
@@ -22,6 +23,9 @@ public slots:
 	void iconSwap(int dir);
 	void timeUp();
 	void on_pushButton_clicked();
+private slots:
+    void on_orderBtn_clicked();
+
 private:
 	Ui::UIClass ui;
 	Icon*** icons;
@@ -34,9 +38,11 @@ private:
 	QEventLoop Wait;
 	//void initRowBeta(Icon***);
 	//void initColumnBeta(Icon***);
-	int m_time;//ï¿½ï¿½ï¿½ï¿½Ê±Ê±ï¿½ï¿½
-	int random;//ï¿½ï¿½ï¿½ï¿½ï¿½
+	int m_time;//µ¹¼ÆÊ±Ê±¼ä
+	int random;//Ëæ»úÊý
 	bool iswait = false;
 	QString initime;
-};
 
+public:
+    OrderView* v;
+};

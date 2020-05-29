@@ -8,8 +8,9 @@ public:
 public:
     MyHelper();
     int getRandomNum(int);
-    void initial_RanMatrix(Icon ***,int,int,int);
+    //void initial_RanMatrix(Icon ***,int,int,int);
     bool IsValid(Icon***,int,int);
+	Data d;
 };
 
 #endif // MYHELPER_H

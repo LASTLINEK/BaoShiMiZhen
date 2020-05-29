@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>1200</width>
-    <height>800</height>
+    <height>826</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -32,35 +32,94 @@
      <height>800</height>
     </size>
    </property>
-   <widget class="QLabel" name="label">
+   <property name="styleSheet">
+    <string notr="true">#centralWidget{
+border-image: url(:/UI/background.png);
+}
+#centralWidget *{
+border-image: url();
+}</string>
+   </property>
+   <widget class="QProgressBar" name="progressBar">
     <property name="geometry">
      <rect>
-      <x>7</x>
-      <y>34</y>
-      <width>1191</width>
-      <height>761</height>
+      <x>10</x>
+      <y>20</y>
+      <width>530</width>
+      <height>30</height>
      </rect>
     </property>
-    <property name="styleSheet">
-     <string notr="true">image: url(:/back/background.png);</string>
+    <property name="value">
+     <number>25</number>
+    </property>
+    <property name="textVisible">
+     <bool>false</bool>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="lineEdit">
+    <property name="geometry">
+     <rect>
+      <x>560</x>
+      <y>20</y>
+      <width>120</width>
+      <height>30</height>
+     </rect>
     </property>
     <property name="text">
-     <string/>
+     <string>300</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="pushButton">
+    <property name="geometry">
+     <rect>
+      <x>1010</x>
+      <y>640</y>
+      <width>151</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>暂停</string>
     </property>
    </widget>
    <widget class="QPushButton" name="orderBtn">
     <property name="geometry">
      <rect>
-      <x>770</x>
-      <y>0</y>
-      <width>75</width>
-      <height>23</height>
+      <x>1010</x>
+      <y>540</y>
+      <width>151</width>
+      <height>41</height>
      </rect>
     </property>
     <property name="text">
      <string>排行榜</string>
     </property>
    </widget>
+  </widget>
+  <widget class="QMenuBar" name="menuBar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>1200</width>
+     <height>23</height>
+    </rect>
+   </property>
+   <widget class="QMenu" name="menu">
+    <property name="title">
+     <string>关于</string>
+    </property>
+    <addaction name="separator"/>
+    <addaction name="action_1_0"/>
+   </widget>
+   <widget class="QMenu" name="menu_2">
+    <property name="title">
+     <string>开始游戏</string>
+    </property>
+    <addaction name="actionlll"/>
+   </widget>
+   <addaction name="menu_2"/>
+   <addaction name="menu"/>
   </widget>
   <action name="actionlll">
    <property name="text">
