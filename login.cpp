@@ -8,6 +8,20 @@ Login::Login(QWidget *parent) :
     ui(new Ui::Login)
 {
     ui->setupUi(this);
+    QImage _image;
+    _image.load("logbg.jpg");
+    setAutoFillBackground(true);   // 这个属性一定要设置
+    QPalette pal(palette());
+    pal.setBrush(QPalette::Window, QBrush(_image.scaled(size(), Qt::IgnoreAspectRatio,
+                        Qt::SmoothTransformation)));
+    setPalette(pal);
+
+    QPalette pa;
+
+    pa.setColor(QPalette::WindowText,Qt::red);
+
+    ui->label_3->setPalette(pa);
+
 }
 
 Login::~Login()
