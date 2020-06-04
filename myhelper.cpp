@@ -1,10 +1,11 @@
+
 #include "myhelper.h"
 
 MyHelper::MyHelper()
 {
-    std::srand(time(NULL));
 }
 int MyHelper::getRandomNum(int mod){ //mod为模，基于所选择的基本方块种类(难度)
+        std::srand(time(NULL));
         int random = std::rand() % mod;
         return random;
 }

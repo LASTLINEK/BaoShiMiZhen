@@ -84,7 +84,14 @@ void UI::iconSwap(int dir)
 		}
 		Icon* end = icons[endRow][endCol];
 		source->swapWith(end);
-		swap(sourceRow, sourceCol, endRow, endCol);
+
+        if (swapAndDelete(sourceRow, sourceCol, endRow, endCol)){
+            do{
+            DropUnit(10,10);  //逻辑重力下落
+            freshMap();  //刷新地图
+            }while(AutoDelete(10,10));  //当不可以再自动消除时，跳出循环
+        }
+
 	}
 	else {
 		;
@@ -173,13 +180,24 @@ void UI::initIcons(int row, int column)
 }
 
 
-void UI::swap(int row1, int column1, int row2, int column2) {
+
+bool UI::swapAndDelete(int row1, int column1, int row2, int column2) {
 	
 	Icon* tmp = icons[row1][column1];//new Icon(ui.centralWidget, d);
 	icons[row1][column1] = icons[row2][column2];
 	icons[row2][column2] = tmp;
-	if (!helper.IsValid(icons, 10, 10)) {
-		std::vector<Icon*> result1 = getPoints(row1, column1);  //获得交换以后(row1,col1)的可消除点
+
+
+    //交换后有可消除的点，得到可消除的点并进行消除
+    if (!helper.IsValid(icons, 10, 10)) {
+        //将Icon的属性修改
+        icons[row1][column1]->row = row1;
+        icons[row1][column1]->column = column1;
+        icons[row2][column2]->row = row2;
+        icons[row2][column2]->column = column2;
+
+        std::vector<Icon*> result1 = getPoints(row1, column1);  //获得交换以后(row1,col1)的可消除点
+
 		std::vector<Icon*> result2 = getPoints(row2, column2);  //获得交换以后(row2,col2)的可消除点
 		for (int i = 0; i < result1.size(); i++) {
 			result1[i]->status = -1;
@@ -192,11 +210,25 @@ void UI::swap(int row1, int column1, int row2, int column2) {
 			qDebug() << result2[i]->x() << "," << result2[i]->y();
 		}
 	}
+
+    //交换后没有可消除的点，将原来的两个点交换回来
 	else {
-		//icons[row1][column1]->swapWith(icons[row2][column2]);
+
 		icons[row2][column2] = icons[row1][column1];
 		icons[row1][column1] = tmp;
 	}
+}
+
+void UI::swap(int row1, int column1, int row2, int column2){
+    Icon* tmp = icons[row1][column1];
+    icons[row1][column1] = icons[row2][column2];
+    icons[row2][column2] = tmp;
+    icons[row1][column1]->row = row1;
+    icons[row1][column1]->column = column1;
+
+    icons[row2][column2]->row = row2;
+    icons[row2][column2]->column = column2;
+
 }
 
 std::vector<Icon*> UI::getPoints(int row, int column) {
@@ -241,6 +273,144 @@ std::vector<Icon*> UI::getPoints(int row, int column) {
 	return results;
 }
 
+/*
+ *全图死局处理函数
+ * 输入: Map的行列
+ * 输出: 是否是死局（死局处理可以在本函数补充，也可以在函数外补充调用）
+*/
+bool UI::CheckMapDead(int row, int column){
+    std::vector<Icon*>result = Hint(row,column);
+    if (!result.size()){  //如果vector中没有元素说明当前是死局
+                       /*
+
+                         添加处理死图代码
+
+                       */
+
+        return true;
+    }else{
+                       /*
+
+                         添加提示UI代码
+
+                       */
+        return false;  //否则不是死局
+    }
+}
+/*
+ * 提示逻辑函数，
+ * 输入：Map的行列
+ * 输出：vector 装有两个或0个Icon;
+*/
+std::vector<Icon*> UI:: Hint(int row,int column){ //
+    std::vector<Icon*> result;
+    Icon * tmp;  //中间指针;
+    for(int i =0;i<row-1;i++){  //对每一个元素进行向下向右的交换
+        for(int j = 0; j<column-1;j++){
+            tmp =icons[i][j];  //向下交换
+            icons[i][j] = icons[i-1][j];
+            icons[i-1][j] = tmp;
+
+            if(!helper.IsValid(icons,10,10)){//如果存在三连就
+                icons[i-1][j] = icons[i][j];
+                icons[i][j] = tmp;
+                result.push_back(icons[i][j]);
+                result.push_back(icons[i-1][j]);
+                return result;
+            }
+            else{
+                icons[i-1][j] = icons[i][j];
+                icons[i][j] = tmp;
+            }
+
+            icons[i][j] = icons[i][j+1]; //向右交换
+            icons[i][j+1] = tmp;
+            if(!helper.IsValid(icons,10,10)){//如果存在三连就
+                icons[i][j+1] = icons[i][j];
+                icons[i][j] = tmp;
+                result.push_back(icons[i][j]);
+                result.push_back(icons[i-1][j]);
+                return result;
+            }
+            else{
+                icons[i][j+1] = icons[i][j];
+                icons[i][j] = tmp;
+            }
+        }
+    }
+    return result;  //返回result
+}
+/*
+ * DropUint函数
+ * 输入:Map行列数;
+ * 输出:true or false()
+ * 功能:对每一列进行重力下落
+*/
+bool UI::DropUnit(int row,int column){
+    bool isDroped =false;
+    //每列向下遍历,把status为1的给冒泡上去;
+    for(int i =0;i< column;i++){  //列数
+        for (int j =1; j<row;j++){   //从上向下总共row-1个点需要冒泡，每次把一个点交换到顶部
+            if(icons[j][i]->status ==-1&&icons[j-1][i]->status!= -1){
+                isDroped =true;
+                int count =j;  //count记录当前Icon的位置
+                do {
+                    swap(count,i, count - 1,i);
+                } while (--count >= 1 && icons[count - 1][i]->status != -1);
+            }
+        }
+    }
+    return isDroped;
+}
+void UI::RandomAdd(int row, int column){
+    for(int i = 0; i < row ;i ++){
+        for(int j = 0; j< column; j++){
+            if (icons[i][j]->status == -1){  //状态为-1时添加
+                                             //未完成。
+          }
+        }
+    }
+}
+/*
+ * AutoDelete函数
+ * 输入:Map行列数;
+ * 输出:true or false()
+ * 功能:true表示发生了自动消除,下一步进行下落和补充生成,，false说明没有自动消除,跳出下落循环
+*/
+bool UI::AutoDelete(int row, int column){
+    std::vector<Icon*> Point_Deleted;
+        // 行检查是否有连续 3 个
+        for (int i = 0; i < row; ++i) {
+            for (int j = 0; j < column - 2; ++j) {
+                if (icons[i][j]->status ==icons[i][j+1]->status&& icons[i][j+1]->status==icons[i][j+2]->status){
+                    Point_Deleted.push_back(icons[i][j]);
+                    j = j+3; //跳过这三个
+                }
+            }
+        }
+        // 列检查是否有连续 3 个
+        for (int j = 0; j < column; ++j) {
+            for (int i = 0; i < row - 2; ++i) { //i为行数
+                if (icons[i][j]->status == icons[i+1][j]->status&&icons[i+1][j]->status ==icons[i+2][j]->status){
+                    Point_Deleted.push_back(icons[i][j]);
+                    i = i+3; //跳过这三个
+                 }
+            }
+        }
+        // 如果没有找到这样的点，则证明没有被动产生消除
+        if (Point_Deleted.size() == 0) return false;
+        // 根据点获取消除点
+        for (int i = 0; i < Point_Deleted.size(); ++i) {
+            std::vector<Icon*> tempPoints = getPoints(Point_Deleted[i]->row, Point_Deleted[i]->column);
+            for (int j =0;j <tempPoints.size();j++){
+                tempPoints[j]->status = -1;  //设为删除状态
+                iconExplode(tempPoints[j]);  //消除点爆炸
+            }
+        }
+        return true;
+}
+
+
 void UI::sleep(int sleepTime)
 {
 	QTime time;
@@ -251,5 +421,7 @@ void UI::sleep(int sleepTime)
 
 void UI::on_orderBtn_clicked()
 {
-    v->show();
+
+	v->show();
+
 }
