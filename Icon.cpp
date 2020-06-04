@@ -3,10 +3,11 @@
 Icon::Icon(QWidget * parent, Data d):QLabel(parent)
 {
     this->setGeometry(d.x, d.y, ICON_WIDTH, ICON_HEIGHT);
-    QPixmap pix(pixFileName[d.kind]);
+	QPixmap pix(pixFileName[d.kind]);
+	status =d.kind ;  //初始化状态
     originX = 0;
     originY = 0;
-    status = d.kind;  //初始化状态
+    
     swapping = false;
     this->setPixmap(pix);
     this->setScaledContents(true);
@@ -29,8 +30,8 @@ void Icon::swapWith(Icon * i)
     aniThis->setEndValue(i->geometry());
     aniThat->setEndValue(this->geometry());
 
-    aniThis->setDuration(400);
-    aniThat->setDuration(400);
+    aniThis->setDuration(300);
+    aniThat->setDuration(300);
     aniThis->start();
     aniThat->start();
 }
@@ -47,6 +48,10 @@ void Icon::drop(int blocks)
     ani->setEndValue(QRect(endX, endY, ICON_HEIGHT, ICON_HEIGHT));
     ani->start();
 }
+
+
+
+
 
 void Icon::mouseMoveEvent(QMouseEvent * event)
 {

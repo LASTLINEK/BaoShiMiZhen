@@ -84,12 +84,14 @@ void UI::iconSwap(int dir)
 		}
 		Icon* end = icons[endRow][endCol];
 		source->swapWith(end);
+
         if (swapAndDelete(sourceRow, sourceCol, endRow, endCol)){
             do{
             DropUnit(10,10);  //逻辑重力下落
             freshMap();  //刷新地图
             }while(AutoDelete(10,10));  //当不可以再自动消除时，跳出循环
         }
+
 	}
 	else {
 		;
@@ -178,11 +180,13 @@ void UI::initIcons(int row, int column)
 }
 
 
+
 bool UI::swapAndDelete(int row1, int column1, int row2, int column2) {
 	
 	Icon* tmp = icons[row1][column1];//new Icon(ui.centralWidget, d);
 	icons[row1][column1] = icons[row2][column2];
 	icons[row2][column2] = tmp;
+
 
     //交换后有可消除的点，得到可消除的点并进行消除
     if (!helper.IsValid(icons, 10, 10)) {
@@ -193,6 +197,7 @@ bool UI::swapAndDelete(int row1, int column1, int row2, int column2) {
         icons[row2][column2]->column = column2;
 
         std::vector<Icon*> result1 = getPoints(row1, column1);  //获得交换以后(row1,col1)的可消除点
+
 		std::vector<Icon*> result2 = getPoints(row2, column2);  //获得交换以后(row2,col2)的可消除点
 		for (int i = 0; i < result1.size(); i++) {
 			result1[i]->status = -1;
@@ -205,12 +210,15 @@ bool UI::swapAndDelete(int row1, int column1, int row2, int column2) {
 			qDebug() << result2[i]->x() << "," << result2[i]->y();
 		}
 	}
+
     //交换后没有可消除的点，将原来的两个点交换回来
 	else {
+
 		icons[row2][column2] = icons[row1][column1];
 		icons[row1][column1] = tmp;
 	}
 }
+
 void UI::swap(int row1, int column1, int row2, int column2){
     Icon* tmp = icons[row1][column1];
     icons[row1][column1] = icons[row2][column2];
@@ -222,6 +230,7 @@ void UI::swap(int row1, int column1, int row2, int column2){
     icons[row2][column2]->column = column2;
 
 }
+
 std::vector<Icon*> UI::getPoints(int row, int column) {
 	std::vector<Icon*> horPoints, verPoints;
 	int  status = icons[row][column]->status;
@@ -263,6 +272,7 @@ std::vector<Icon*> UI::getPoints(int row, int column) {
 	
 	return results;
 }
+
 /*
  *全图死局处理函数
  * 输入: Map的行列
@@ -400,6 +410,7 @@ bool UI::AutoDelete(int row, int column){
         return true;
 }
 
+
 void UI::sleep(int sleepTime)
 {
 	QTime time;
@@ -410,5 +421,7 @@ void UI::sleep(int sleepTime)
 
 void UI::on_orderBtn_clicked()
 {
+
 	v->show();
+
 }
