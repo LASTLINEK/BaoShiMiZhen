@@ -1,0 +1,15 @@
+<RCC>
+    <qresource prefix="/back">
+        <file>background.png</file>
+        <file>k1.png</file>
+        <file>k2.png</file>
+        <file>k3.png</file>
+        <file>k4.png</file>
+        <file>k5.png</file>
+        <file>yinfu.jpg</file>
+        <file>yinfu2.jpg</file>
+    </qresource>
+    <qresource prefix="/music">
+        <file>Saxophone.mp3</file>
+    </qresource>
+</RCC>

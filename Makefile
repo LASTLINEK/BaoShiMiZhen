@@ -223,6 +223,7 @@ Makefile: UI.pro ..\..\..\5.13.2\msvc2017_64\mkspecs\win32-msvc\qmake.conf ..\..
 		..\..\..\5.13.2\msvc2017_64\mkspecs\features\qt_config.prf \
 		..\..\..\5.13.2\msvc2017_64\mkspecs\win32-msvc\qmake.conf \
 		..\..\..\5.13.2\msvc2017_64\mkspecs\features\spec_post.prf \
+		.qmake.stash \
 		..\..\..\5.13.2\msvc2017_64\mkspecs\features\exclusive_builds.prf \
 		..\..\..\5.13.2\msvc2017_64\mkspecs\common\msvc-version.conf \
 		..\..\..\5.13.2\msvc2017_64\mkspecs\features\toolchain.prf \
@@ -248,8 +249,10 @@ Makefile: UI.pro ..\..\..\5.13.2\msvc2017_64\mkspecs\win32-msvc\qmake.conf ..\..
 		..\..\..\5.13.2\msvc2017_64\mkspecs\features\lex.prf \
 		UI.pro \
 		..\..\..\5.13.2\msvc2017_64\lib\Qt5Widgets.prl \
+		..\..\..\5.13.2\msvc2017_64\lib\Qt5Multimedia.prl \
 		..\..\..\5.13.2\msvc2017_64\lib\Qt5Gui.prl \
 		..\..\..\5.13.2\msvc2017_64\lib\Qt5Sql.prl \
+		..\..\..\5.13.2\msvc2017_64\lib\Qt5Network.prl \
 		..\..\..\5.13.2\msvc2017_64\lib\Qt5Core.prl \
 		..\..\..\5.13.2\msvc2017_64\lib\qtmain.prl
 	$(QMAKE) -o Makefile UI.pro -spec win32-msvc "CONFIG+=debug" "CONFIG+=qml_debug"
@@ -399,6 +402,7 @@ Makefile: UI.pro ..\..\..\5.13.2\msvc2017_64\mkspecs\win32-msvc\qmake.conf ..\..
 ..\..\..\5.13.2\msvc2017_64\mkspecs\features\qt_config.prf:
 ..\..\..\5.13.2\msvc2017_64\mkspecs\win32-msvc\qmake.conf:
 ..\..\..\5.13.2\msvc2017_64\mkspecs\features\spec_post.prf:
+.qmake.stash:
 ..\..\..\5.13.2\msvc2017_64\mkspecs\features\exclusive_builds.prf:
 ..\..\..\5.13.2\msvc2017_64\mkspecs\common\msvc-version.conf:
 ..\..\..\5.13.2\msvc2017_64\mkspecs\features\toolchain.prf:
@@ -424,8 +428,10 @@ Makefile: UI.pro ..\..\..\5.13.2\msvc2017_64\mkspecs\win32-msvc\qmake.conf ..\..
 ..\..\..\5.13.2\msvc2017_64\mkspecs\features\lex.prf:
 UI.pro:
 ..\..\..\5.13.2\msvc2017_64\lib\Qt5Widgets.prl:
+..\..\..\5.13.2\msvc2017_64\lib\Qt5Multimedia.prl:
 ..\..\..\5.13.2\msvc2017_64\lib\Qt5Gui.prl:
 ..\..\..\5.13.2\msvc2017_64\lib\Qt5Sql.prl:
+..\..\..\5.13.2\msvc2017_64\lib\Qt5Network.prl:
 ..\..\..\5.13.2\msvc2017_64\lib\Qt5Core.prl:
 ..\..\..\5.13.2\msvc2017_64\lib\qtmain.prl:
 qmake: FORCE

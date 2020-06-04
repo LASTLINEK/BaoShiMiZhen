@@ -4,8 +4,15 @@ UI::UI(QWidget* parent)
 	: QMainWindow(parent)
 {
 	ui.setupUi(this);
+
+     musicicon.addFile(":/back/yinfu.jpg");                 //背景音乐
+     ui.musicButton->setIcon(musicicon);
+     ui.musicButton->setIconSize(QSize(65,63));
+     music.playmusic();
+     isPause = false;
+
 	initIcons(10, 10);
-	//⏲
+                                                            //⏲
 	timer = new QTimer(this);
 	initime = ui.lineEdit->text();
 	m_time = initime.toInt();
@@ -85,13 +92,14 @@ void UI::iconSwap(int dir)
 		Icon* end = icons[endRow][endCol];
 		source->swapWith(end);
 
-        if (swapAndDelete(sourceRow, sourceCol, endRow, endCol)){
-            do{
-            DropUnit(10,10);  //逻辑重力下落
-            freshMap();  //刷新地图
-            }while(AutoDelete(10,10));  //当不可以再自动消除时，跳出循环
-        }
+//        if (swapAndDelete(sourceRow, sourceCol, endRow, endCol)){
+//            do{
+//            DropUnit(10,10);  //逻辑重力下落
+//            //freshMap();  //刷新地图
+//            }while(AutoDelete(10,10));  //当不可以再自动消除时，跳出循环
+//        }
 
+        swapAndDelete(sourceRow, sourceCol, endRow, endCol);
 	}
 	else {
 		;
@@ -209,6 +217,7 @@ bool UI::swapAndDelete(int row1, int column1, int row2, int column2) {
 			iconExplode(result2[i]);
 			qDebug() << result2[i]->x() << "," << result2[i]->y();
 		}
+        return true;
 	}
 
     //交换后没有可消除的点，将原来的两个点交换回来
@@ -216,7 +225,9 @@ bool UI::swapAndDelete(int row1, int column1, int row2, int column2) {
 
 		icons[row2][column2] = icons[row1][column1];
 		icons[row1][column1] = tmp;
-	}
+        return false;
+    }
+
 }
 
 void UI::swap(int row1, int column1, int row2, int column2){
@@ -424,4 +435,19 @@ void UI::on_orderBtn_clicked()
 
 	v->show();
 
+}
+
+void UI::on_musicButton_clicked()
+{
+    if(isPause == false){
+        isPause = true;
+        music.pausemusic();
+        musicicon.addFile(":/back/yinfu2.jpg");
+        ui.musicButton->setIcon(musicicon);
+    } else {
+        isPause = false;
+        music.continuemusic();
+        musicicon.addFile(":/back/yinfu.jpg");
+        ui.musicButton->setIcon(musicicon);
+    }
 }
