@@ -3,6 +3,7 @@
 playerInfo::playerInfo()
 {
     initDatabase();
+    addToList();
 }
 
 void playerInfo::initDatabase()
@@ -41,12 +42,23 @@ void playerInfo::printData()
 
 bool playerInfo::findUser(QString name, QString pass)
 {
-    lis.clear();
-    addToList();
     for(int i=0;i<lis.length();i++)
     {
         a = lis[i];
         if(a.username==name && a.password == pass)
+        {
+            return true;
+        }
+    }
+    return false;
+}
+
+bool playerInfo::findUser(QString name)
+{
+    for(int i=0;i<lis.length();i++)
+    {
+        a = lis[i];
+        if(a.username==name)
         {
             return true;
         }
@@ -61,6 +73,7 @@ user playerInfo::getCurrent()
 
 void playerInfo::addToList()
 {
+    lis.clear();
     QSqlQuery query(db);
     query.exec("SELECT * FROM playerInfo");
     while(query.next())
@@ -74,12 +87,20 @@ void playerInfo::addToList()
 
 bool playerInfo::addUser(QString name, QString pass)
 {
-    QSqlQuery query(db);
-    //QString s = QString("insert into playerInfo(userName,password,score) values(%1,%2,0)").arg(name).arg(pass);
-    query.prepare("insert playerInfo(userName,password,score) values(?,?,?)");
-    query.bindValue(0,name);
-    query.bindValue(1,pass);
-    query.bindValue(2,0);
-    query.exec();
-    return true;
+    if(!findUser(name))
+    {
+        QSqlQuery query(db);
+        query.prepare("insert playerInfo(userName,password,score) values(?,?,?)");
+        query.bindValue(0,name);
+        query.bindValue(1,pass);
+        query.bindValue(2,0);
+        query.exec();
+        addToList();
+        return true;
+    }
+    else
+    {
+        return false;
+    }
+
 }

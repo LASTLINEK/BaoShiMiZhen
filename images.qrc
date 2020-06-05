@@ -8,6 +8,7 @@
         <file>k5.png</file>
         <file>yinfu.jpg</file>
         <file>yinfu2.jpg</file>
+        <file>orderBg .jpg</file>
     </qresource>
     <qresource prefix="/music">
         <file>Saxophone.mp3</file>

@@ -24,6 +24,8 @@ public:
     void initDatabase();
     void printData();
     bool findUser(QString name,QString pass);
+    bool findUser(QString name);
+
     user getCurrent();
     void addToList();
     bool addUser(QString name,QString pass);

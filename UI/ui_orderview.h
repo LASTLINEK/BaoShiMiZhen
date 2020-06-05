@@ -28,7 +28,7 @@ public:
     {
         if (OrderView->objectName().isEmpty())
             OrderView->setObjectName(QString::fromUtf8("OrderView"));
-        OrderView->resize(297, 434);
+        OrderView->resize(245, 408);
         QFont font;
         font.setFamily(QString::fromUtf8("Arial Black"));
         font.setPointSize(12);
@@ -45,7 +45,7 @@ public:
         font1.setBold(true);
         font1.setWeight(75);
         tableView->setFont(font1);
-        tableView->setStyleSheet(QString::fromUtf8("border-image:url(:/UI/background.png)"));
+        tableView->setStyleSheet(QString::fromUtf8("border-image:url(:/back/orderBg .jpg);color:rgb(133, 217, 255)"));
         tableView->setShowGrid(true);
         tableView->setSortingEnabled(true);
 

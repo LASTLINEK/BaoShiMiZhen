@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>297</width>
-    <height>434</height>
+    <width>245</width>
+    <height>408</height>
    </rect>
   </property>
   <property name="font">
@@ -35,7 +35,7 @@
       </font>
      </property>
      <property name="styleSheet">
-      <string notr="true">border-image:url(:/UI/background.png)</string>
+      <string notr="true">border-image:url(:/back/orderBg .jpg);color:rgb(133, 217, 255)</string>
      </property>
      <property name="showGrid">
       <bool>true</bool>
