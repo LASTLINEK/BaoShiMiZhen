@@ -82,6 +82,32 @@ border-image: url();
      <string>暂停</string>
     </property>
    </widget>
+   <widget class="QPushButton" name="orderBtn">
+    <property name="geometry">
+     <rect>
+      <x>1010</x>
+      <y>540</y>
+      <width>151</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>排行榜</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="musicButton">
+    <property name="geometry">
+     <rect>
+      <x>1060</x>
+      <y>100</y>
+      <width>61</width>
+      <height>61</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
   </widget>
   <widget class="QMenuBar" name="menuBar">
    <property name="geometry">
@@ -120,8 +146,6 @@ border-image: url();
   </action>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
- <resources>
-  <include location="UI.qrc"/>
- </resources>
+ <resources/>
  <connections/>
 </ui>
