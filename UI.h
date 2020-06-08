@@ -37,7 +37,7 @@ private:
 	Icon*** icons;
      Music music;
 	MyHelper helper;
-    int random = 0;//Ëæ»úÊý
+    int random = 0;
     bool isPause;
     QIcon musicicon;
 	void drop_tmp(int row, int col);
@@ -51,19 +51,16 @@ private:
 
 	QTimer* timer;
 	QEventLoop Wait;
-	//void initRowBeta(Icon***);
-	//void initColumnBeta(Icon***);
-	int m_time;//µ¹¼ÆÊ±Ê±¼ä
-    //int random;//Ëæ»úÊý
+	int m_time;
 	bool iswait = false;
 	QString initime;
 
 	bool CheckMapDead(int,int);
     std::vector<Icon*> Hint(int,int );
     bool DropUnit(int row, int column);
-    void RandomAdd(int row, int column);  //Ëæ»úÌí¼Ó ÈÔ´ýÍê³É
+    void RandomAdd(int row, int column);  
     bool AutoDelete(int row,int column);
-
+	void freshMap(int row, int column);
 public:
 	OrderView* v;
 
