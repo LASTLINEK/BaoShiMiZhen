@@ -40,7 +40,7 @@ private:
     int random = 0;//Ëæ»úÊý
     bool isPause;
     QIcon musicicon;
-
+	void drop_tmp(int row, int col);
 	void initIcons(int row, int column);	
 
     bool swapAndDelete(int row1, int column1, int row2, int column2);

@@ -100,12 +100,15 @@ border-image: url();
      <rect>
       <x>1060</x>
       <y>140</y>
-      <width>75</width>
+      <width>41</width>
       <height>23</height>
      </rect>
     </property>
+    <property name="autoFillBackground">
+     <bool>true</bool>
+    </property>
     <property name="text">
-     <string>PushButton</string>
+     <string>music</string>
     </property>
    </widget>
   </widget>

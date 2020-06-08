@@ -74,7 +74,8 @@ public:
         orderBtn->setGeometry(QRect(1010, 540, 151, 41));
         musicButton = new QPushButton(centralWidget);
         musicButton->setObjectName(QString::fromUtf8("musicButton"));
-        musicButton->setGeometry(QRect(1060, 140, 75, 23));
+        musicButton->setGeometry(QRect(1060, 140, 51, 23));
+        musicButton->setAutoFillBackground(true);
         UIClass->setCentralWidget(centralWidget);
         menuBar = new QMenuBar(UIClass);
         menuBar->setObjectName(QString::fromUtf8("menuBar"));
@@ -104,7 +105,7 @@ public:
         lineEdit->setText(QCoreApplication::translate("UIClass", "300", nullptr));
         pushButton->setText(QCoreApplication::translate("UIClass", "\346\232\202\345\201\234", nullptr));
         orderBtn->setText(QCoreApplication::translate("UIClass", "\346\216\222\350\241\214\346\246\234", nullptr));
-        musicButton->setText(QCoreApplication::translate("UIClass", "PushButton", nullptr));
+        musicButton->setText(QCoreApplication::translate("UIClass", "music", nullptr));
         menu->setTitle(QCoreApplication::translate("UIClass", "\345\205\263\344\272\216", nullptr));
         menu_2->setTitle(QCoreApplication::translate("UIClass", "\345\274\200\345\247\213\346\270\270\346\210\217", nullptr));
     } // retranslateUi

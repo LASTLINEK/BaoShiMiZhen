@@ -14,26 +14,33 @@ Icon::Icon(QWidget * parent, Data d):QLabel(parent)
     this->show();
 }
 
-void Icon::swapWith(Icon * i)
+void Icon::swapWith(Icon *& i)
 {
     int tempCol = i->column;
     int tempRow = i->row;
     i->column = this->column;
     i->row = this->row;
+    qDebug() << this->row << "," << this->column << " swap with " << tempRow << "," << tempCol;
     this->column = tempCol;
     this->row = tempRow;
     QPropertyAnimation* aniThis = new QPropertyAnimation(this, "geometry");
     QPropertyAnimation* aniThat = new QPropertyAnimation(i, "geometry");
-
-    aniThis->setStartValue(this->geometry());
-    aniThat->setStartValue(i->geometry());
-    aniThis->setEndValue(i->geometry());
-    aniThat->setEndValue(this->geometry());
+    QRect geometry1 = this->geometry();
+    QRect geometry2 = i->geometry();
+    qDebug() << geometry1;
+    qDebug() << geometry2;
+    aniThis->setStartValue(geometry1);
+    aniThat->setStartValue(geometry2);
+    aniThis->setEndValue(geometry2);
+    aniThat->setEndValue(geometry1);
 
     aniThis->setDuration(300);
     aniThat->setDuration(300);
     aniThis->start();
     aniThat->start();
+
+    this->setGeometry(geometry2);
+    i->setGeometry(geometry1);
 }
 
 void Icon::drop(int blocks)
@@ -42,16 +49,36 @@ void Icon::drop(int blocks)
     ani->setDuration(500);
     ani->setStartValue(this->geometry());
     int endX = this->x();
-    int endY = this->y() + blocks * ICON_HEIGHT;
+    int endY = 100+ (blocks+row)* ICON_HEIGHT;
+    originY += ICON_HEIGHT;
     ani->setKeyValueAt(0.75, QRect(endX, endY, ICON_WIDTH, ICON_HEIGHT));
     ani->setKeyValueAt(0.9, QRect(endX, endY - 15, ICON_WIDTH, ICON_HEIGHT));
     ani->setEndValue(QRect(endX, endY, ICON_HEIGHT, ICON_HEIGHT));
     ani->start();
+    QRect geometry = this->geometry();
+    int y = geometry.y();
+    geometry.setY(y + blocks * ICON_HEIGHT);
 }
 
+void Icon::refresh(int kind)
+{
+    QPixmap pix(pixFileName[kind]);
+    status = kind;  //初始化状态
+    this->setGeometry(100+column*ICON_WIDTH, 100+row*ICON_HEIGHT, ICON_WIDTH, ICON_HEIGHT);
+    this->setPixmap(pix);
+    this->setScaledContents(true);
+    this->setVisible(true);
+}
 
-
-
+void Icon::setSwapping(bool tf)
+{
+    if (tf) {
+        swapping = true;
+    }
+    else {
+        swapping = false;
+    }
+}
 
 void Icon::mouseMoveEvent(QMouseEvent * event)
 {
@@ -78,7 +105,8 @@ void Icon::mouseMoveEvent(QMouseEvent * event)
         emit Swap(UP);
     }
     if (shouldSwap) {
-        swapping = true;
+        qDebug() << "siganal sent";
+        //swapping = true;
         originX = endX;
         originY = endY;
     }
@@ -93,6 +121,6 @@ void Icon::mousePressEvent(QMouseEvent * e)
 
 void Icon::mouseReleaseEvent(QMouseEvent * event)
 {
-    swapping = false;
+    //swapping = false;
     emit Released();
 }
