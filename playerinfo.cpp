@@ -17,11 +17,6 @@ void playerInfo::initDatabase()
     db.setPassword("2331");                             //密码
     if(!db.open())                                      //打开数据库
     {
-//        a.username = "fgd";
-//        a.password = "123";
-//        a.score = 7;
-//        lis.append(a);
-
         qDebug()<<db.lastError().text();
         QMessageBox::critical(0, QObject::tr("Database error"), db.lastError().text());
         exit(1);                                        //打开失败
@@ -75,7 +70,7 @@ void playerInfo::addToList()
 {
     lis.clear();
     QSqlQuery query(db);
-    query.exec("SELECT * FROM playerInfo");
+    query.exec("SELECT * FROM playerInfo order by score desc");
     while(query.next())
     {
         a.username = query.value(0).toString();

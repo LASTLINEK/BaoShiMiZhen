@@ -3,6 +3,7 @@
 
 #include <QWidget>
 #include "UI.h"
+#include "logon.h"
 
 
 namespace Ui {
@@ -28,6 +29,10 @@ private:
     Ui::Login *ui;
     UI* play;
     playerInfo info;
+    Logon lgon;
+
+public slots:
+    void receiveMsg(QString name,QString pass);
 };
 
 #endif // LOGIN_H

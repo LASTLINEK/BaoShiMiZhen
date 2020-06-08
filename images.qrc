@@ -9,6 +9,9 @@
         <file>yinfu.jpg</file>
         <file>yinfu2.jpg</file>
         <file>orderBg .jpg</file>
+        <file>right.png</file>
+        <file>wrong.png</file>
+        <file>logonbg.jpg</file>
     </qresource>
     <qresource prefix="/music">
         <file>Saxophone.mp3</file>

@@ -21,6 +21,9 @@ void OrderView::setData(QList<user> lis)
     model->setHorizontalHeaderItem(0, new QStandardItem(QString::fromLocal8Bit("用户名")));      //设置表头
     model->setHorizontalHeaderItem(1, new QStandardItem(QString::fromLocal8Bit("积分")));
 
+    ui->tableView->horizontalHeader()->setStyleSheet("QHeaderView::section {"
+                                                     "color: green;background: rgb(193,255,198)}");
+
     ui->tableView->setGridStyle(Qt::DotLine);                   //虚线表格
 
     ui->tableView->setModel(model);
@@ -40,8 +43,10 @@ void OrderView::setData(QList<user> lis)
         model->item(i,1)->setTextAlignment(Qt::AlignCenter);       //居中
         model->item(i,0)->setForeground(QBrush(QColor(0,0,155)));   //颜色
         model->item(i,1)->setForeground(QBrush(QColor(155,0,0)));
+
     }
 
-    model->sort(1, Qt::AscendingOrder);
+    //model->sort(1, Qt::AscendingOrder);//增序
+    //model->sort(1,Qt::DescendingOrder);//降序
 }
 

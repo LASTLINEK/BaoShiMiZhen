@@ -8,6 +8,7 @@ SOURCES += \
     Icon.cpp \
     UI.cpp \
     login.cpp \
+    logon.cpp \
     main.cpp \
     music.cpp \
     myhelper.cpp \
@@ -18,6 +19,7 @@ HEADERS += \
     Icon.h \
     UI.h \
     login.h \
+    logon.h \
     music.h \
     myhelper.h \
     orderview.h \
@@ -26,6 +28,7 @@ HEADERS += \
 FORMS += \
     UI.ui \
     login.ui \
+    logon.ui \
     orderview.ui
 
 RESOURCES += \

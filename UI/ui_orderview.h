@@ -11,7 +11,7 @@
 
 #include <QtCore/QVariant>
 #include <QtWidgets/QApplication>
-#include <QtWidgets/QGridLayout>
+#include <QtWidgets/QHBoxLayout>
 #include <QtWidgets/QHeaderView>
 #include <QtWidgets/QTableView>
 #include <QtWidgets/QWidget>
@@ -21,23 +21,24 @@ QT_BEGIN_NAMESPACE
 class Ui_OrderView
 {
 public:
-    QGridLayout *gridLayout;
+    QHBoxLayout *horizontalLayout;
     QTableView *tableView;
 
     void setupUi(QWidget *OrderView)
     {
         if (OrderView->objectName().isEmpty())
             OrderView->setObjectName(QString::fromUtf8("OrderView"));
-        OrderView->resize(245, 408);
+        OrderView->resize(275, 386);
         QFont font;
         font.setFamily(QString::fromUtf8("Arial Black"));
         font.setPointSize(12);
         font.setBold(true);
         font.setWeight(75);
         OrderView->setFont(font);
-        OrderView->setAutoFillBackground(true);
-        gridLayout = new QGridLayout(OrderView);
-        gridLayout->setObjectName(QString::fromUtf8("gridLayout"));
+        OrderView->setAutoFillBackground(false);
+        OrderView->setStyleSheet(QString::fromUtf8("background-image: url(:/back/orderBg .jpg);"));
+        horizontalLayout = new QHBoxLayout(OrderView);
+        horizontalLayout->setObjectName(QString::fromUtf8("horizontalLayout"));
         tableView = new QTableView(OrderView);
         tableView->setObjectName(QString::fromUtf8("tableView"));
         QFont font1;
@@ -45,11 +46,13 @@ public:
         font1.setBold(true);
         font1.setWeight(75);
         tableView->setFont(font1);
-        tableView->setStyleSheet(QString::fromUtf8("border-image:url(:/back/orderBg .jpg);color:rgb(133, 217, 255)"));
+        tableView->setStyleSheet(QString::fromUtf8("border-image:url(:/back/orderBg .jpg);\n"
+"color:rgb(133, 217, 255);\n"
+""));
         tableView->setShowGrid(true);
         tableView->setSortingEnabled(true);
 
-        gridLayout->addWidget(tableView, 0, 0, 1, 1);
+        horizontalLayout->addWidget(tableView);
 
 
         retranslateUi(OrderView);
