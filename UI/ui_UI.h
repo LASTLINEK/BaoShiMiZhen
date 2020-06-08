@@ -74,7 +74,7 @@ public:
         orderBtn->setGeometry(QRect(1010, 540, 151, 41));
         musicButton = new QPushButton(centralWidget);
         musicButton->setObjectName(QString::fromUtf8("musicButton"));
-        musicButton->setGeometry(QRect(1060, 140, 51, 23));
+        musicButton->setGeometry(QRect(1060, 140, 41, 23));
         musicButton->setAutoFillBackground(true);
         UIClass->setCentralWidget(centralWidget);
         menuBar = new QMenuBar(UIClass);

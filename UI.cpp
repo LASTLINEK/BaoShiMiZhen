@@ -73,7 +73,6 @@ void UI::iconSwap(int dir)
 		Icon* source = (Icon*)sender();
 		int sourceCol = source->column;
 		int sourceRow = source->row;
-		//source = icons[sourceRow][sourceCol];
 		int endCol = sourceCol;
 		int endRow = sourceRow;
 		switch (dir) {
@@ -94,14 +93,13 @@ void UI::iconSwap(int dir)
 		source->setSwapping(true);
 		source->swapWith(end);
 		
-     //   if (swapAndDelete(sourceRow, sourceCol, endRow, endCol)){
-    //       do{
-    //      DropUnit(10,10);  //逻辑重力下落
-//            //freshMap();  //刷新地图
-    //        }while(AutoDelete(10,10));  //当不可以再自动消除时，跳出循环
-     //   }
-		sleep(350);
-       swapAndDelete(sourceRow, sourceCol, endRow, endCol);
+        if (swapAndDelete(sourceRow, sourceCol, endRow, endCol)){
+			sleep(350);
+           do{
+				DropUnit(10,10);  //逻辑重力下落
+				RandomAdd(10,10);  //刷新地图
+           }while(AutoDelete(10,10));  //当不可以再自动消除时，跳出循环
+        }
 	}
 	else {
 		;
@@ -118,13 +116,12 @@ void UI::iconExplode(Icon* icon)
 	int row = icon->row;
 	int x = 100 + col * ICON_WIDTH+ICON_WIDTH/2;
 	int y = 100 + row * ICON_HEIGHT+ICON_HEIGHT/2;
-	qDebug() << row << "row,col" << col;
 	boomImage->setGeometry(QRect(x, y, 0, 0));
 	boomImage->show();
 
 	x -= ICON_WIDTH / 2;
 	y -= ICON_HEIGHT / 2;
-	int aniTime = 300;
+	int aniTime = 250;
 	QPropertyAnimation* ani = new QPropertyAnimation(boomImage, "geometry");
 	ani->setStartValue(boomImage->geometry());
 	ani->setEndValue(QRect(x, y, ICON_WIDTH, ICON_HEIGHT));
@@ -264,26 +261,25 @@ bool UI::swapAndDelete(int row1, int column1, int row2, int column2) {
 		Icon* tmp = icons[row1][column1];
 		icons[row1][column1] = icons[row2][column2];
 		icons[row2][column2] = tmp;
-		qDebug() << "or here?";
         std::vector<Icon*> result1 = getPoints(row1, column1);  //获得交换以后(row1,col1)的可消除点
 
 		std::vector<Icon*> result2 = getPoints(row2, column2);  //获得交换以后(row2,col2)的可消除点
 		for (int i = 0; i < result1.size(); i++) {
 			result1[i]->status = -1;
 			iconExplode(result1[i]);
-			drop_tmp(result1[i]->row, result1[i]->column);
+			//drop_tmp(result1[i]->row, result1[i]->column);
 		}
 		for (int i = 0; i < result2.size(); i++) {
 			result2[i]->status = -1;
 			iconExplode(result2[i]);
-			drop_tmp(result2[i]->row, result2[i]->column);
+			//drop_tmp(result2[i]->row, result2[i]->column);
 		}
         return true;
 	}
 
     //交换后没有可消除的点，将原来的两个点交换回来
 	else {
-		qDebug() << "here";
+		qDebug() << "no explosion";
 		icons[row1][column1]->status = status1;
 		icons[row2][column2]->status = status2;
 		
@@ -428,10 +424,11 @@ bool UI::DropUnit(int row,int column){
 	bool isDroped = false;
 	for (int i = 0; i < column; i++) {  //列数
 		int count = 0;
-		for (int j = 0; j < row; j++) {  //行数
+		for (int j = row-1; j >=0; j--) {  //行数
 			if (icons[j][i]->status != -1) {
 				if (count != 0) {
-					swap(row, column, row + count, column);  //进行交换
+					icons[j][i]->drop(count);
+					swap(j, i, j + count, i);  //进行交换
 					isDroped = true;  //标明发生了重力降落
 				}
 			}
@@ -443,13 +440,17 @@ bool UI::DropUnit(int row,int column){
 	return isDroped;
 }
 void UI::RandomAdd(int row, int column){
-    for(int i = 0; i < row ;i ++){
-        for(int j = 0; j< column; j++){
-            if (icons[i][j]->status == -1){  //状态为-1时添加
-                                             //未完成。
-          }
-        }
-    }
+	sleep(300);
+	srand(time(NULL));
+	for (int i = 0; i < row; i++) {
+		for (int j = 0; j < column; j++) {
+			if (icons[i][j]->status == -1) {
+				int random = rand()%5;
+				qDebug() << random;
+				icons[i][j]->refresh(random);
+			}
+		}
+	}
 }
 /*
  * AutoDelete函数
@@ -490,18 +491,25 @@ bool UI::AutoDelete(int row, int column){
         return true;
 }
 
+void UI::freshMap(int row, int column)
+{
+	
+}
+
 
 void UI::sleep(int sleepTime)
 {
 	QTime time;
 	time.start();
-	while (time.elapsed() < sleepTime)             //等待时间流逝5秒钟
-    QCoreApplication::processEvents();
+	while (time.elapsed() < sleepTime)             //等待时间流逝
+		QCoreApplication::processEvents();
 }
 
 void UI::on_orderBtn_clicked()
 {
+
 	v->show();
+
 }
 
 void UI::on_musicButton_clicked()
