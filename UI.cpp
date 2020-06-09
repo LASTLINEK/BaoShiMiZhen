@@ -5,11 +5,12 @@ UI::UI(QWidget* parent)
 {
 	ui.setupUi(this);
 
-     musicicon.addFile(":/back/yinfu.jpg");                 //背景音乐
-     ui.musicButton->setIcon(musicicon);
-     ui.musicButton->setIconSize(QSize(65,63));
-     music.playmusic();
-     isPause = false;
+
+    musicicon.addFile(":/back/yinfu.jpg");                 //背景音乐
+    ui.musicButton->setIcon(musicicon);
+    ui.musicButton->setIconSize(QSize(65,63));
+    music.playmusic();
+    isPause = false;
 
 	initIcons(10, 10);
                                                             //⏲
@@ -19,6 +20,21 @@ UI::UI(QWidget* parent)
 	timer->start(1000);
 	connect(timer, SIGNAL(timeout()), this, SLOT(timeUp()));
 }
+void UI::AddScore(int num){
+    switch(num){
+    case 3: score += num*10;
+        break;
+    case 4: score += num*15;
+        break;
+    default: score += num*20;
+        break;
+    }
+}
+void UI::setScore(){
+    ui.Label_Score->setText(std::to_string(score).c_str());
+}
+
+
 void UI::iconClicked() {
 	if (iswait == false) {
 		//Icon* icon = (Icon*)sender();
@@ -28,7 +44,6 @@ void UI::iconClicked() {
 		;
 	}
 }
-
 void UI::iconReleased()
 {
 	if (iswait == false) {}
@@ -46,11 +61,9 @@ void UI::timeUp()//倒计时函数
 		if (m_time == 0)
 		{
 			timer->stop();
+            gameOver();
 
 		}
-	}
-	else {
-
 	}
 }
 
@@ -94,12 +107,15 @@ void UI::iconSwap(int dir)
 		source->swapWith(end);
 		
         if (swapAndDelete(sourceRow, sourceCol, endRow, endCol)){
+		    setScore();
 			sleep(350);
-           do{
+            do{
 				DropUnit(10,10);  //逻辑重力下落
 				RandomAdd(10,10);  //刷新地图
-           }while(AutoDelete(10,10));  //当不可以再自动消除时，跳出循环
+            }while(AutoDelete(10,10));  //当不可以再自动消除时，跳出循环
+		    setScore();
         }
+
 	}
 	else {
 		;
@@ -262,8 +278,9 @@ bool UI::swapAndDelete(int row1, int column1, int row2, int column2) {
 		icons[row1][column1] = icons[row2][column2];
 		icons[row2][column2] = tmp;
         std::vector<Icon*> result1 = getPoints(row1, column1);  //获得交换以后(row1,col1)的可消除点
-
+		AddScore(result1.size());
 		std::vector<Icon*> result2 = getPoints(row2, column2);  //获得交换以后(row2,col2)的可消除点
+		AddScore(result2.size());
 		for (int i = 0; i < result1.size(); i++) {
 			result1[i]->status = -1;
 			iconExplode(result1[i]);
@@ -483,17 +500,43 @@ bool UI::AutoDelete(int row, int column){
         // 根据点获取消除点
         for (int i = 0; i < Point_Deleted.size(); ++i) {
             std::vector<Icon*> tempPoints = getPoints(Point_Deleted[i]->row, Point_Deleted[i]->column);
+            AddScore(tempPoints.size());
             for (int j =0;j <tempPoints.size();j++){
                 tempPoints[j]->status = -1;  //设为删除状态
                 iconExplode(tempPoints[j]);  //消除点爆炸
             }
         }
+        setScore();
         return true;
 }
 
 void UI::freshMap(int row, int column)
 {
-	
+
+}
+
+bool UI::ifWin()
+{
+    return true;
+}
+
+void UI::gameOver()
+{
+    if(ifWin())
+    {
+        QMessageBox::about(NULL,tr("游戏结束"),tr("恭喜你，游戏胜利！   "));
+
+    }
+    else
+    {
+        QMessageBox::about(NULL,tr("游戏结束"),tr("很遗憾，游戏失败，请再接再厉！   "));
+    }
+
+    //this->close();
+    emit sendGameOver(score);
+    music.pausemusic();
+    qDebug() << "send gameOver";
+
 }
 
 
@@ -503,13 +546,6 @@ void UI::sleep(int sleepTime)
 	time.start();
 	while (time.elapsed() < sleepTime)             //等待时间流逝
 		QCoreApplication::processEvents();
-}
-
-void UI::on_orderBtn_clicked()
-{
-
-	v->show();
-
 }
 
 void UI::on_musicButton_clicked()

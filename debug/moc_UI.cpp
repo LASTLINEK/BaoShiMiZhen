@@ -23,7 +23,7 @@ QT_WARNING_PUSH
 QT_WARNING_DISABLE_DEPRECATED
 struct qt_meta_stringdata_UI_t {
     QByteArrayData data[10];
-    char stringdata0[114];
+    char stringdata0[107];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -33,20 +33,20 @@ struct qt_meta_stringdata_UI_t {
 static const qt_meta_stringdata_UI_t qt_meta_stringdata_UI = {
     {
 QT_MOC_LITERAL(0, 0, 2), // "UI"
-QT_MOC_LITERAL(1, 3, 11), // "iconClicked"
-QT_MOC_LITERAL(2, 15, 0), // ""
-QT_MOC_LITERAL(3, 16, 12), // "iconReleased"
-QT_MOC_LITERAL(4, 29, 8), // "iconSwap"
-QT_MOC_LITERAL(5, 38, 3), // "dir"
-QT_MOC_LITERAL(6, 42, 6), // "timeUp"
-QT_MOC_LITERAL(7, 49, 21), // "on_pushButton_clicked"
-QT_MOC_LITERAL(8, 71, 19), // "on_orderBtn_clicked"
-QT_MOC_LITERAL(9, 91, 22) // "on_musicButton_clicked"
+QT_MOC_LITERAL(1, 3, 12), // "sendGameOver"
+QT_MOC_LITERAL(2, 16, 0), // ""
+QT_MOC_LITERAL(3, 17, 11), // "iconClicked"
+QT_MOC_LITERAL(4, 29, 12), // "iconReleased"
+QT_MOC_LITERAL(5, 42, 8), // "iconSwap"
+QT_MOC_LITERAL(6, 51, 3), // "dir"
+QT_MOC_LITERAL(7, 55, 6), // "timeUp"
+QT_MOC_LITERAL(8, 62, 21), // "on_pushButton_clicked"
+QT_MOC_LITERAL(9, 84, 22) // "on_musicButton_clicked"
 
     },
-    "UI\0iconClicked\0\0iconReleased\0iconSwap\0"
-    "dir\0timeUp\0on_pushButton_clicked\0"
-    "on_orderBtn_clicked\0on_musicButton_clicked"
+    "UI\0sendGameOver\0\0iconClicked\0iconReleased\0"
+    "iconSwap\0dir\0timeUp\0on_pushButton_clicked\0"
+    "on_musicButton_clicked"
 };
 #undef QT_MOC_LITERAL
 
@@ -61,22 +61,26 @@ static const uint qt_meta_data_UI[] = {
        0,    0, // enums/sets
        0,    0, // constructors
        0,       // flags
-       0,       // signalCount
+       1,       // signalCount
+
+ // signals: name, argc, parameters, tag, flags
+       1,    1,   49,    2, 0x06 /* Public */,
 
  // slots: name, argc, parameters, tag, flags
-       1,    0,   49,    2, 0x0a /* Public */,
-       3,    0,   50,    2, 0x0a /* Public */,
-       4,    1,   51,    2, 0x0a /* Public */,
-       6,    0,   54,    2, 0x0a /* Public */,
-       7,    0,   55,    2, 0x0a /* Public */,
-       8,    0,   56,    2, 0x08 /* Private */,
-       9,    0,   57,    2, 0x08 /* Private */,
+       3,    0,   52,    2, 0x0a /* Public */,
+       4,    0,   53,    2, 0x0a /* Public */,
+       5,    1,   54,    2, 0x0a /* Public */,
+       7,    0,   57,    2, 0x0a /* Public */,
+       8,    0,   58,    2, 0x0a /* Public */,
+       9,    0,   59,    2, 0x08 /* Private */,
+
+ // signals: parameters
+    QMetaType::Void, QMetaType::Int,    2,
 
  // slots: parameters
     QMetaType::Void,
     QMetaType::Void,
-    QMetaType::Void, QMetaType::Int,    5,
-    QMetaType::Void,
+    QMetaType::Void, QMetaType::Int,    6,
     QMetaType::Void,
     QMetaType::Void,
     QMetaType::Void,
@@ -90,14 +94,23 @@ void UI::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, void **_
         auto *_t = static_cast<UI *>(_o);
         Q_UNUSED(_t)
         switch (_id) {
-        case 0: _t->iconClicked(); break;
-        case 1: _t->iconReleased(); break;
-        case 2: _t->iconSwap((*reinterpret_cast< int(*)>(_a[1]))); break;
-        case 3: _t->timeUp(); break;
-        case 4: _t->on_pushButton_clicked(); break;
-        case 5: _t->on_orderBtn_clicked(); break;
+        case 0: _t->sendGameOver((*reinterpret_cast< int(*)>(_a[1]))); break;
+        case 1: _t->iconClicked(); break;
+        case 2: _t->iconReleased(); break;
+        case 3: _t->iconSwap((*reinterpret_cast< int(*)>(_a[1]))); break;
+        case 4: _t->timeUp(); break;
+        case 5: _t->on_pushButton_clicked(); break;
         case 6: _t->on_musicButton_clicked(); break;
         default: ;
+        }
+    } else if (_c == QMetaObject::IndexOfMethod) {
+        int *result = reinterpret_cast<int *>(_a[0]);
+        {
+            using _t = void (UI::*)(int );
+            if (*reinterpret_cast<_t *>(_a[1]) == static_cast<_t>(&UI::sendGameOver)) {
+                *result = 0;
+                return;
+            }
         }
     }
 }
@@ -140,6 +153,13 @@ int UI::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
         _id -= 7;
     }
     return _id;
+}
+
+// SIGNAL 0
+void UI::sendGameOver(int _t1)
+{
+    void *_a[] = { nullptr, const_cast<void*>(reinterpret_cast<const void*>(std::addressof(_t1))) };
+    QMetaObject::activate(this, &staticMetaObject, 0, _a);
 }
 QT_WARNING_POP
 QT_END_MOC_NAMESPACE

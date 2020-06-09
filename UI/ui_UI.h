@@ -12,6 +12,7 @@
 #include <QtCore/QVariant>
 #include <QtWidgets/QAction>
 #include <QtWidgets/QApplication>
+#include <QtWidgets/QLabel>
 #include <QtWidgets/QLineEdit>
 #include <QtWidgets/QMainWindow>
 #include <QtWidgets/QMenu>
@@ -31,8 +32,9 @@ public:
     QProgressBar *progressBar;
     QLineEdit *lineEdit;
     QPushButton *pushButton;
-    QPushButton *orderBtn;
     QPushButton *musicButton;
+    QLabel *Label_Score;
+    QLabel *label;
     QMenuBar *menuBar;
     QMenu *menu;
     QMenu *menu_2;
@@ -65,18 +67,33 @@ public:
         progressBar->setTextVisible(false);
         lineEdit = new QLineEdit(centralWidget);
         lineEdit->setObjectName(QString::fromUtf8("lineEdit"));
-        lineEdit->setGeometry(QRect(560, 20, 120, 30));
+        lineEdit->setGeometry(QRect(590, 20, 120, 30));
         pushButton = new QPushButton(centralWidget);
         pushButton->setObjectName(QString::fromUtf8("pushButton"));
         pushButton->setGeometry(QRect(1010, 640, 151, 41));
-        orderBtn = new QPushButton(centralWidget);
-        orderBtn->setObjectName(QString::fromUtf8("orderBtn"));
-        orderBtn->setGeometry(QRect(1010, 540, 151, 41));
         musicButton = new QPushButton(centralWidget);
         musicButton->setObjectName(QString::fromUtf8("musicButton"));
-        musicButton->setGeometry(QRect(1060, 140, 41, 23));
-        musicButton->setAutoFillBackground(true);
+        musicButton->setGeometry(QRect(1020, 410, 111, 23));
+        Label_Score = new QLabel(centralWidget);
+        Label_Score->setObjectName(QString::fromUtf8("Label_Score"));
+        Label_Score->setGeometry(QRect(1010, 70, 150, 40));
+        QFont font;
+        font.setFamily(QString::fromUtf8("Goudy Old Style"));
+        font.setPointSize(22);
+        Label_Score->setFont(font);
+        Label_Score->setAlignment(Qt::AlignCenter);
+        label = new QLabel(centralWidget);
+        label->setObjectName(QString::fromUtf8("label"));
+        label->setGeometry(QRect(1010, 30, 151, 131));
+        label->setPixmap(QPixmap(QString::fromUtf8("art_2.png")));
+        label->setScaledContents(true);
         UIClass->setCentralWidget(centralWidget);
+        label->raise();
+        progressBar->raise();
+        lineEdit->raise();
+        pushButton->raise();
+        musicButton->raise();
+        Label_Score->raise();
         menuBar = new QMenuBar(UIClass);
         menuBar->setObjectName(QString::fromUtf8("menuBar"));
         menuBar->setGeometry(QRect(0, 0, 1200, 23));
@@ -102,10 +119,11 @@ public:
         UIClass->setWindowTitle(QCoreApplication::translate("UIClass", "UI", nullptr));
         actionlll->setText(QCoreApplication::translate("UIClass", "begin", nullptr));
         action_1_0->setText(QCoreApplication::translate("UIClass", "@1.0", nullptr));
-        lineEdit->setText(QCoreApplication::translate("UIClass", "300", nullptr));
+        lineEdit->setText(QCoreApplication::translate("UIClass", "5", nullptr));
         pushButton->setText(QCoreApplication::translate("UIClass", "\346\232\202\345\201\234", nullptr));
-        orderBtn->setText(QCoreApplication::translate("UIClass", "\346\216\222\350\241\214\346\246\234", nullptr));
-        musicButton->setText(QCoreApplication::translate("UIClass", "music", nullptr));
+        musicButton->setText(QCoreApplication::translate("UIClass", "PushButton", nullptr));
+        Label_Score->setText(QCoreApplication::translate("UIClass", "0", nullptr));
+        label->setText(QString());
         menu->setTitle(QCoreApplication::translate("UIClass", "\345\205\263\344\272\216", nullptr));
         menu_2->setTitle(QCoreApplication::translate("UIClass", "\345\274\200\345\247\213\346\270\270\346\210\217", nullptr));
     } // retranslateUi

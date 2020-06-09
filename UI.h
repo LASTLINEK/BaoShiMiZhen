@@ -18,6 +18,7 @@ class UI : public QMainWindow
 public:
 	UI(QWidget *parent = Q_NULLPTR);
 	void iconExplode(Icon* icon);
+    int score =0;           //分数
 public slots:
 	void iconClicked();
 	void iconReleased();
@@ -27,15 +28,15 @@ public slots:
 
 private slots:
 
-	void on_orderBtn_clicked();
-
-
     void on_musicButton_clicked();
 
 private:
 	Ui::UIClass ui;
 	Icon*** icons;
-     Music music;
+
+    void AddScore(int);
+    void setScore();
+    Music music;
 	MyHelper helper;
     int random = 0;
     bool isPause;
@@ -61,7 +62,14 @@ private:
     void RandomAdd(int row, int column);  
     bool AutoDelete(int row,int column);
 	void freshMap(int row, int column);
-public:
-	OrderView* v;
+    bool ifWin();
+    void gameOver();
+    void updateScore();
 
+public:
+    OrderView* v;
+    playerInfo info;
+
+signals:
+    void sendGameOver(int);
 };

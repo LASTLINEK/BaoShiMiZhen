@@ -99,3 +99,14 @@ bool playerInfo::addUser(QString name, QString pass)
     }
 
 }
+
+void playerInfo::updateScore(QString name, int score)
+{
+    QSqlQuery query(db);
+    query.prepare("update playerInfo set score = ? where userName = ?");
+    query.addBindValue(score);
+    query.addBindValue(name);
+
+    query.exec();
+    addToList();
+}

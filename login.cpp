@@ -41,13 +41,14 @@ void Login::on_pushButton_clicked()         //登陆
         if(info.findUser(name,pass))
         {
             QMessageBox::about(NULL,tr("提示"),tr("登陆成功！  "));
-            user a = info.getCurrent();
-            //qDebug() << a.username << a.password << a.score;
 
-            play = new UI;
-            play->v = new OrderView;
-            play->v->setData(info.lis);
-            play->show();                       //打开游戏界面
+            user a = info.getCurrent();
+            qDebug() << a.username << a.password << a.score;
+
+            menu.show();
+            menu.setName(name);
+            menu.setCurScore(a.score);
+
             this->close();
         }
         else
@@ -77,16 +78,20 @@ void Login::on_pushButton_2_clicked()      //注册
 
 void Login::on_pushButton_3_clicked()      //跳过
 {
-    play = new UI;
-    play->v = new OrderView;
-    play->v->setData(info.lis);
-    play->show();                       //打开游戏界面
-    this->close();
+//    play = new UI;
+//    play->v = new OrderView;
+//    play->v->setData(info.lis);
+//    play->show();                       //打开游戏界面
+//    this->close();
 
-//    OrderView* od;
-//    od = new OrderView;
-//    od->setData(info.lis);
-//    od->show();
+    OrderView* od;
+    od = new OrderView;
+
+    info.updateScore("zk",33);
+    info.addUser("UZI","123123");
+
+    od->setData(info.lis);
+    od->show();
 }
 
 void Login::receiveMsg(QString name, QString pass)

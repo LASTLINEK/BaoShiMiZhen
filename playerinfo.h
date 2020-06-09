@@ -29,6 +29,7 @@ public:
     user getCurrent();
     void addToList();
     bool addUser(QString name,QString pass);
+    void updateScore(QString name,int score);
 
     QList<user> lis;
     user a;

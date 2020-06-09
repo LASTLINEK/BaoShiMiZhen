@@ -12,8 +12,12 @@
         <file>right.png</file>
         <file>wrong.png</file>
         <file>logonbg.jpg</file>
+        <file>art_2.png</file>
+        <file>menuBg.jpg</file>
+        <file>settingBg.jpg</file>
     </qresource>
     <qresource prefix="/music">
         <file>Saxophone.mp3</file>
+        <file>xiaochu.MP3</file>
     </qresource>
 </RCC>
