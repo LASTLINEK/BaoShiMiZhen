@@ -6,67 +6,67 @@
 ** WARNING! All changes made in this file will be lost!
 *****************************************************************************/
 
-  // D:/Qtt/MYpractice/BaoShiMiZhen/BaoShiMiZhen/Saxophone.mp3
+  // C:/Users/22709/Desktop/new/Saxophone.mp3
   
   
-    // D:/Qtt/MYpractice/BaoShiMiZhen/BaoShiMiZhen/xiaochu.MP3
+    // C:/Users/22709/Desktop/new/xiaochu.MP3
   
   
-    // D:/Qtt/MYpractice/BaoShiMiZhen/BaoShiMiZhen/BGmusic2.mp3
+    // C:/Users/22709/Desktop/new/BGmusic2.mp3
   
   
-    // D:/Qtt/MYpractice/BaoShiMiZhen/BaoShiMiZhen/settingBg.jpg
+    // C:/Users/22709/Desktop/new/settingBg.jpg
   
   
-    // D:/Qtt/MYpractice/BaoShiMiZhen/BaoShiMiZhen/background.png
+    // C:/Users/22709/Desktop/new/background.png
   
   
-    // D:/Qtt/MYpractice/BaoShiMiZhen/BaoShiMiZhen/art_2.png
+    // C:/Users/22709/Desktop/new/art_2.png
   
   
-    // D:/Qtt/MYpractice/BaoShiMiZhen/BaoShiMiZhen/k1.png
+    // C:/Users/22709/Desktop/new/k1.png
   
   
-    // D:/Qtt/MYpractice/BaoShiMiZhen/BaoShiMiZhen/k2.png
+    // C:/Users/22709/Desktop/new/k2.png
   
   
-    // D:/Qtt/MYpractice/BaoShiMiZhen/BaoShiMiZhen/yinfu2.jpg
+    // C:/Users/22709/Desktop/new/yinfu2.jpg
   
   
-    // D:/Qtt/MYpractice/BaoShiMiZhen/BaoShiMiZhen/k3.png
+    // C:/Users/22709/Desktop/new/k3.png
   
   
-    // D:/Qtt/MYpractice/BaoShiMiZhen/BaoShiMiZhen/k4.png
+    // C:/Users/22709/Desktop/new/k4.png
   
   
-    // D:/Qtt/MYpractice/BaoShiMiZhen/BaoShiMiZhen/k5.png
+    // C:/Users/22709/Desktop/new/k5.png
   
   
-    // D:/Qtt/MYpractice/BaoShiMiZhen/BaoShiMiZhen/ocean.jpg
+    // C:/Users/22709/Desktop/new/ocean.jpg
   
   
-    // D:/Qtt/MYpractice/BaoShiMiZhen/BaoShiMiZhen/yinfu.jpg
+    // C:/Users/22709/Desktop/new/yinfu.jpg
   
   
-    // D:/Qtt/MYpractice/BaoShiMiZhen/BaoShiMiZhen/wood.jpg
+    // C:/Users/22709/Desktop/new/wood.jpg
   
   
-    // D:/Qtt/MYpractice/BaoShiMiZhen/BaoShiMiZhen/right.png
+    // C:/Users/22709/Desktop/new/right.png
   
   
-    // D:/Qtt/MYpractice/BaoShiMiZhen/BaoShiMiZhen/wrong.png
+    // C:/Users/22709/Desktop/new/wrong.png
   
   
-    // D:/Qtt/MYpractice/BaoShiMiZhen/BaoShiMiZhen/orderBg .jpg
+    // C:/Users/22709/Desktop/new/orderBg .jpg
   
   
-    // D:/Qtt/MYpractice/BaoShiMiZhen/BaoShiMiZhen/logonbg.jpg
+    // C:/Users/22709/Desktop/new/logonbg.jpg
   
   
-    // D:/Qtt/MYpractice/BaoShiMiZhen/BaoShiMiZhen/help.jpg
+    // C:/Users/22709/Desktop/new/help.jpg
   
   
-    // D:/Qtt/MYpractice/BaoShiMiZhen/BaoShiMiZhen/menuBg.jpg
+    // C:/Users/22709/Desktop/new/menuBg.jpg
   
   
   

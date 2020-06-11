@@ -21,6 +21,7 @@ Menu::Menu(QWidget *parent) :
     ui->BtnSetting->QPushButton::setFlat(true);
     ui->BtnOverview->QPushButton::setFlat(true);
 
+    info = new playerInfo;
 }
 
 Menu::~Menu()
@@ -58,7 +59,7 @@ void Menu::on_BtnMode2_clicked(){
 void Menu::on_BtnOverview_clicked(){        //排行榜
 
     od = new OrderView;
-    info = new playerInfo;
+
     od->setData(info->lis);
     od->show();
 }

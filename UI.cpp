@@ -625,13 +625,14 @@ void UI::gameOver()
         QMessageBox::about(NULL,tr("游戏结束"),tr("很遗憾，游戏失败，请再接再厉！   "));
     }
 
-    this->close();
+
     music1.pausemusic();
 
     emit sendGameOver(score);
 
     qDebug() << "send gameOver";
 
+    this->close();
 }
 
 
