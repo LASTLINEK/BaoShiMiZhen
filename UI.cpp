@@ -1,25 +1,37 @@
 ﻿#include "UI.h"
 
-UI::UI(QWidget* parent)
-	: QMainWindow(parent)
+UI::UI(int s,QWidget* parent)
+    : QMainWindow(parent),scale(s)
 {
 	ui.setupUi(this);
 
-
-    musicicon.addFile(":/back/yinfu.jpg");                 //背景音乐
+    musicicon.addFile("Mpause.png");                 //背景音乐
+    musicicon2.addFile("Mplay.png");
     ui.musicButton->setIcon(musicicon);
     ui.musicButton->setIconSize(QSize(65,63));
-    music.playmusic();
+    music1.playmusic(0);
     isPause = false;
 
-	initIcons(10, 10);
+    initIcons(scale, scale);
                                                             //⏲
 	timer = new QTimer(this);
 	initime = ui.lineEdit->text();
+	ui.lineEdit->setVisible(false);
 	m_time = initime.toInt();
 	timer->start(1000);
 	connect(timer, SIGNAL(timeout()), this, SLOT(timeUp()));
+	//消除覆盖
+	frame = new QFrame(ui.centralWidget);
+	frame->setObjectName(QString::fromUtf8("frame"));
+	frame->setGeometry(QRect(90, 90, 658, 622));
+	frame->setStyleSheet(QString::fromUtf8("border-image: url(stopback.png);"));
+	frame->setVisible(false);
+	ui.restart->setVisible(false);
+	ui.restart->lower();
+	ui.restart->setStyleSheet(QString::fromUtf8("border-image: url(restart.png);"));
+    ui.pushButton->setStyleSheet(QString::fromUtf8("border-image: url(play.png);"));
 }
+
 void UI::AddScore(int num){
     switch(num){
     case 3: score += num*10;
@@ -33,8 +45,41 @@ void UI::AddScore(int num){
 void UI::setScore(){
     ui.Label_Score->setText(std::to_string(score).c_str());
 }
+void UI::artword(int number, int sort) {//艺术字效果
+	//sort为1 时间 
+	//sort为2 分数
+	//……
+	while (number > 0) {
+		stk.push(number % 10);
+		number = number / 10;
+	}
+	int digit = stk.length();
+	initnum(digit, sort);
+}
+void UI::initnum(int num, int sort) {//数字label初始化
+	Number_Data* n = new Number_Data[num];
+	Number_Data time;
+	time.kind = 0;
+	time.x = 0;
+	time.y = 0;
+	for (int i = 0; i < num; i++) {
+		n[i] = time;
+	}
 
+	number = new Number * [num];
+	if (sort == 1) {
+		for (int j = 0; j < num; j++) {
+			n[j].kind = stk.pop();
+			n[j].x = 560 + j * NUMBER_WIDTH;
+			n[j].y = 20;
+			number[j] = new Number(ui.centralWidget, n[j]);
+		}
+	}
+	else {
+		;
+	}
 
+}
 void UI::iconClicked() {
 	if (iswait == false) {
 		//Icon* icon = (Icon*)sender();
@@ -56,27 +101,40 @@ void UI::timeUp()//倒计时函数
 {
 	if (iswait == false) {
 		--m_time;
-		ui.progressBar->setValue(m_time / 3);
+		artword(m_time, 1);
+		ui.progressBar->setValue((m_time * 100) / initime.toInt());//设置时间时候这里要改一下
 		ui.lineEdit->setText(QString::number(m_time));
+
 		if (m_time == 0)
 		{
 			timer->stop();
-            gameOver();
-
+			gameOver();
 		}
 	}
+	else {
+		artword(m_time, 1);
+	}
 }
-
 void UI::on_pushButton_clicked()//暂停
 {
 	if (iswait == false) {
-		ui.pushButton->setText("继续");
+
 		iswait = true;
+
+		frame->setVisible(true);
+		frame->raise();
+		ui.restart->setVisible(true);
+		ui.restart->raise();
+		ui.pushButton->setStyleSheet(QString::fromUtf8("border-image: url(play.png);"));
 		Wait.exec();
 	}
 	else {
-		ui.pushButton->setText("暂停");
+
 		iswait = false;
+		frame->setVisible(false);
+		ui.restart->setVisible(false);
+		ui.restart->lower();
+		ui.pushButton->setStyleSheet(QString::fromUtf8("border-image: url(pause.png);"));
 		Wait.exit();
 	}
 }
@@ -110,9 +168,9 @@ void UI::iconSwap(int dir)
 		    setScore();
 			sleep(350);
             do{
-				DropUnit(10,10);  //逻辑重力下落
-				RandomAdd(10,10);  //刷新地图
-            }while(AutoDelete(10,10));  //当不可以再自动消除时，跳出循环
+                DropUnit(scale,scale);  //逻辑重力下落
+                RandomAdd(scale,scale);  //刷新地图
+            }while(AutoDelete(scale,scale));  //当不可以再自动消除时，跳出循环
 		    setScore();
         }
 
@@ -145,9 +203,47 @@ void UI::iconExplode(Icon* icon)
 	ani->start();
 	sleep(aniTime);
 	icons[row][col]->setVisible(false);
-	delete boomImage;
+    delete boomImage;
 }
 
+void UI::setGoal(int i)
+{
+    goalScore = i;
+    ui.label_current->setText(QString::number(goalScore));
+
+}
+
+void UI::setBgPicture(int t)
+{
+    QImage _image;      //背景图片设置
+
+    switch(t)
+    {
+    case 0:
+        _image.load("background.png");
+        break;
+    case 1:
+        _image.load("ocean.jpg");
+        break;
+    case 2:
+        _image.load("menuBg.jpg");
+        break;
+    case 3:
+        _image.load("wood.jpg");
+        break;
+    }
+
+    setAutoFillBackground(true);   // 这个属性一定要设置
+    QPalette pal(palette());
+    pal.setBrush(QPalette::Window, QBrush(_image.scaled(size(), Qt::IgnoreAspectRatio,
+                                                        Qt::SmoothTransformation)));
+    setPalette(pal);
+}
+
+void UI::setBGM(int p)
+{
+    music1.playmusic(p);
+}
 void UI::drop_tmp(int row, int col)
 {
 	int curRow = row-1;
@@ -170,7 +266,6 @@ void UI::drop_tmp(int row, int col)
 		icons[i][col]->refresh(rand);
 	}
 }
-
 void UI::initIcons(int row, int column)
 {
 	Data** d = new Data * [row];
@@ -263,7 +358,6 @@ void UI::initIcons(int row, int column)
 		}
 	}
 }
-
 bool UI::swapAndDelete(int row1, int column1, int row2, int column2) {
 	int status1 = icons[row1][column1]->status;
 	int status2 = icons[row2][column2]->status;
@@ -271,7 +365,8 @@ bool UI::swapAndDelete(int row1, int column1, int row2, int column2) {
 	icons[row2][column2]->status = status1;
 	
     //交换后有可消除的点，得到可消除的点并进行消除
-    if (!helper.IsValid(icons, 10, 10)) {
+    if (!helper.IsValid(icons, scale, scale)) {
+        music2.playmusic(2);
 		icons[row1][column1]->status = status1;
 		icons[row2][column2]->status = status2;
 		Icon* tmp = icons[row1][column1];
@@ -296,7 +391,6 @@ bool UI::swapAndDelete(int row1, int column1, int row2, int column2) {
 
     //交换后没有可消除的点，将原来的两个点交换回来
 	else {
-		qDebug() << "no explosion";
 		icons[row1][column1]->status = status1;
 		icons[row2][column2]->status = status2;
 		
@@ -310,7 +404,6 @@ bool UI::swapAndDelete(int row1, int column1, int row2, int column2) {
     }
 
 }
-
 void UI::swap(int row1, int column1, int row2, int column2){
     Icon* tmp = icons[row1][column1];
     icons[row1][column1] = icons[row2][column2];
@@ -321,7 +414,6 @@ void UI::swap(int row1, int column1, int row2, int column2){
     icons[row2][column2]->row = row2;
     icons[row2][column2]->column = column2;
 }
-
 std::vector<Icon*> UI::getPoints(int row, int column) {
 	std::vector<Icon*> horPoints, verPoints;
 	int  status = icons[row][column]->status;
@@ -332,7 +424,7 @@ std::vector<Icon*> UI::getPoints(int row, int column) {
 		else { break; }
 	}
 
-	for (int right = column + 1; right < 10; ++right) {
+    for (int right = column + 1; right < scale; ++right) {
 		if (icons[row][right]->status == status)
 			horPoints.push_back(icons[row][right]);
 		else { break; }
@@ -344,7 +436,7 @@ std::vector<Icon*> UI::getPoints(int row, int column) {
 		else { break; }
 	}
 
-	for (int down = row + 1; down < 10; ++down) {
+    for (int down = row + 1; down < scale; ++down) {
 		if (icons[down][column]->status == status)
 			verPoints.push_back(icons[down][column]);
 		else { break; }
@@ -363,7 +455,6 @@ std::vector<Icon*> UI::getPoints(int row, int column) {
 	
 	return results;
 }
-
 /*
  *全图死局处理函数
  * 输入: Map的行列
@@ -393,44 +484,46 @@ bool UI::CheckMapDead(int row, int column){
  * 输入：Map的行列
  * 输出：vector 装有两个或0个Icon;
 */
-std::vector<Icon*> UI:: Hint(int row,int column){ //
-    std::vector<Icon*> result;
-    Icon * tmp;  //中间指针;
-    for(int i =0;i<row-1;i++){  //对每一个元素进行向下向右的交换
-        for(int j = 0; j<column-1;j++){
-            tmp =icons[i][j];  //向下交换
-            icons[i][j] = icons[i-1][j];
-            icons[i-1][j] = tmp;
 
-            if(!helper.IsValid(icons,10,10)){//如果存在三连就
-                icons[i-1][j] = icons[i][j];
-                icons[i][j] = tmp;
-                result.push_back(icons[i][j]);
-                result.push_back(icons[i-1][j]);
-                return result;
-            }
-            else{
-                icons[i-1][j] = icons[i][j];
-                icons[i][j] = tmp;
-            }
+std::vector<Icon*> UI::Hint(int row, int column) { //
+	std::vector<Icon*> result;
+	Icon* tmp;  //中间指针;
+	for (int i = 0; i < row - 1; i++) {  //对每一个元素进行向下向右的交换
+		for (int j = 0; j < column - 1; j++) {
+			tmp = icons[i][j];  //向下交换
+			icons[i][j] = icons[i + 1][j];
+			icons[i + 1][j] = tmp;
 
-            icons[i][j] = icons[i][j+1]; //向右交换
-            icons[i][j+1] = tmp;
-            if(!helper.IsValid(icons,10,10)){//如果存在三连就
-                icons[i][j+1] = icons[i][j];
-                icons[i][j] = tmp;
-                result.push_back(icons[i][j]);
-                result.push_back(icons[i-1][j]);
-                return result;
-            }
-            else{
-                icons[i][j+1] = icons[i][j];
-                icons[i][j] = tmp;
-            }
-        }
-    }
-    return result;  //返回result
+			if (!helper.IsValid(icons, scale, scale)) {//如果存在三连就
+				icons[i + 1][j] = icons[i][j];
+				icons[i][j] = tmp;
+				result.push_back(icons[i][j]);
+				result.push_back(icons[i + 1][j]);
+				return result;
+			}
+			else {
+				icons[i + 1][j] = icons[i][j];
+				icons[i][j] = tmp;
+			}
+
+			icons[i][j] = icons[i][j + 1]; //向右交换
+			icons[i][j + 1] = tmp;
+			if (!helper.IsValid(icons, scale, scale)) {//如果存在三连就
+				icons[i][j + 1] = icons[i][j];
+				icons[i][j] = tmp;
+				result.push_back(icons[i][j]);
+				result.push_back(icons[i][j + 1]);
+				return result;
+			}
+			else {
+				icons[i][j + 1] = icons[i][j];
+				icons[i][j] = tmp;
+			}
+		}
+	}
+	return result;  //返回result
 }
+
 /*
  * DropUint函数
  * 输入:Map行列数;
@@ -463,7 +556,6 @@ void UI::RandomAdd(int row, int column){
 		for (int j = 0; j < column; j++) {
 			if (icons[i][j]->status == -1) {
 				int random = rand()%5;
-				qDebug() << random;
 				icons[i][j]->refresh(random);
 			}
 		}
@@ -500,6 +592,7 @@ bool UI::AutoDelete(int row, int column){
         // 根据点获取消除点
         for (int i = 0; i < Point_Deleted.size(); ++i) {
             std::vector<Icon*> tempPoints = getPoints(Point_Deleted[i]->row, Point_Deleted[i]->column);
+            music2.playmusic(2);
             AddScore(tempPoints.size());
             for (int j =0;j <tempPoints.size();j++){
                 tempPoints[j]->status = -1;  //设为删除状态
@@ -509,17 +602,17 @@ bool UI::AutoDelete(int row, int column){
         setScore();
         return true;
 }
-
 void UI::freshMap(int row, int column)
 {
 
 }
-
 bool UI::ifWin()
 {
-    return true;
+    if(score >= goalScore)
+        return true;
+    else
+        return false;
 }
-
 void UI::gameOver()
 {
     if(ifWin())
@@ -532,13 +625,20 @@ void UI::gameOver()
         QMessageBox::about(NULL,tr("游戏结束"),tr("很遗憾，游戏失败，请再接再厉！   "));
     }
 
-    //this->close();
+    this->close();
+    music1.pausemusic();
+
     emit sendGameOver(score);
-    music.pausemusic();
+
     qDebug() << "send gameOver";
 
 }
 
+
+void UI::closeEvent(QCloseEvent *event)
+{
+    music1.pausemusic();
+}
 
 void UI::sleep(int sleepTime)
 {
@@ -547,18 +647,59 @@ void UI::sleep(int sleepTime)
 	while (time.elapsed() < sleepTime)             //等待时间流逝
 		QCoreApplication::processEvents();
 }
-
 void UI::on_musicButton_clicked()
 {
     if(isPause == false){
+                                                       //暂停
+        ui.musicButton->setIcon(musicicon2);
+        ui.musicButton->setIconSize(QSize(65,63));
+
         isPause = true;
-        music.pausemusic();
-        musicicon.addFile(":/back/yinfu2.jpg");
-        ui.musicButton->setIcon(musicicon);
+        music1.pausemusic();
+
     } else {
-        isPause = false;
-        music.continuemusic();
-        musicicon.addFile(":/back/yinfu.jpg");
+                                                    //继续播放
         ui.musicButton->setIcon(musicicon);
+        ui.musicButton->setIconSize(QSize(65,63));
+
+
+        isPause = false;
+        music1.continuemusic();
     }
+}
+void UI::on_restart_clicked() {//重新开始
+	iswait = false;
+	frame->setVisible(false);
+	ui.restart->setVisible(false);
+	ui.restart->lower();
+	ui.pushButton->setStyleSheet(QString::fromUtf8("border-image: url(pause.png);"));
+	Wait.exit();
+    for (int i = 0; i < scale; i++) {
+        for (int j = 0; j < scale; j++) {
+			delete icons[i][j];
+		}
+	}
+	music1.playmusic(0);
+	isPause = false;
+	m_time = TIME;
+	score = 0;
+    initIcons(scale, scale);
+}
+
+void UI::on_action_H_triggered()
+{
+    help = new Help;
+    help->show();
+}
+
+void UI::on_HintButton_clicked()
+{
+    std::vector<Icon*> hint = Hint(scale, scale);
+    score -= 20;
+    for (int i = 0; i < hint.size(); i++) {
+        hint[i]->setVisible(false);
+        sleep(250);
+        hint[i]->setVisible(true);
+    }
+    setScore();
 }

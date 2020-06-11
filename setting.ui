@@ -151,7 +151,7 @@
     </rect>
    </property>
    <property name="text">
-    <string>海洋</string>
+    <string>默认</string>
    </property>
   </widget>
   <widget class="QRadioButton" name="RBtn2">
@@ -164,7 +164,7 @@
     </rect>
    </property>
    <property name="text">
-    <string>浪花</string>
+    <string>海洋</string>
    </property>
   </widget>
   <widget class="QRadioButton" name="RBtn3">

@@ -7,10 +7,10 @@ class Music
 {
 public:
     Music();
-    void playmusic();
+    void playmusic(int type);
     void pausemusic();
     void continuemusic();
 private:
     QMediaPlayer *player;
-    QMediaPlaylist *playlist;
+    QMediaPlaylist* playlist[3];
 };

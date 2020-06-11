@@ -2,7 +2,7 @@
 #define MENU_H
 
 #include <QMainWindow>
-#include "UI.h"
+#include "choosedif.h"
 
 namespace Ui {
 class Menu;
@@ -25,19 +25,22 @@ private slots:
     void on_BtnOverview_clicked();
     void on_BtnSetting_clicked();
     void receiveData(QString data);
-    void setScore(int score);
 
+    void setScore(int score);
+    void setGoal(int g);
+    void setBG();
 
 private:
     Ui::Menu *ui;
     UI* play;
-    int backgroudMusic;  //背景音乐
-    int theme;  //主题
+    int backgroudMusic=0;  //背景音乐
+    int theme=0;  //主题
     QString crName;
-    int crScore;
+    int crScore=0;
 
-    playerInfo info;
+    playerInfo* info;
     OrderView* od;
+    ChooseDif* cd;
 
 public slots:
 };

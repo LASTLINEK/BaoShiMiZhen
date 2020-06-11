@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading UI file 'setting.ui'
 **
-** Created by: Qt User Interface Compiler version 5.13.0
+** Created by: Qt User Interface Compiler version 5.13.2
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
 ********************************************************************************/
@@ -100,8 +100,8 @@ public:
         label_2->setText(QString());
         label_3->setText(QCoreApplication::translate("Setting", "\350\203\214\346\231\257\351\237\263\344\271\220", nullptr));
         label_4->setText(QCoreApplication::translate("Setting", "\344\270\273\351\242\230", nullptr));
-        RBtn1->setText(QCoreApplication::translate("Setting", "\346\265\267\346\264\213", nullptr));
-        RBtn2->setText(QCoreApplication::translate("Setting", "\346\265\252\350\212\261", nullptr));
+        RBtn1->setText(QCoreApplication::translate("Setting", "\351\273\230\350\256\244", nullptr));
+        RBtn2->setText(QCoreApplication::translate("Setting", "\346\265\267\346\264\213", nullptr));
         RBtn3->setText(QCoreApplication::translate("Setting", "\346\230\237\347\251\272", nullptr));
         RBtn4->setText(QCoreApplication::translate("Setting", "\346\234\250\345\210\266", nullptr));
     } // retranslateUi

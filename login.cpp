@@ -64,15 +64,6 @@ void Login::on_pushButton_clicked()         //登陆
 
 void Login::on_pushButton_2_clicked()      //注册
 {
-    //    if(info.addUser(ui->userLine->text(),ui->passLine->text()))
-    //    {
-    //        QMessageBox::about(NULL,tr("提示"),tr("注册成功！  "));
-    //    }
-    //    else
-    //    {
-    //        QMessageBox::about(NULL,tr("注册失败"),tr("用户名已存在！  "));
-    //    }
-
     lgon.show();
 }
 
@@ -84,14 +75,20 @@ void Login::on_pushButton_3_clicked()      //跳过
 //    play->show();                       //打开游戏界面
 //    this->close();
 
-    OrderView* od;
-    od = new OrderView;
+//    OrderView* od;
+//    od = new OrderView;
 
-    info.updateScore("zk",33);
-    info.addUser("UZI","123123");
+//    info.updateScore("zk",33);
+//    info.addUser("UZI","123123");
 
-    od->setData(info.lis);
-    od->show();
+//    od->setData(info.lis);
+//    od->show();
+
+    menu.show();
+    this->close();
+
+    //menu.setName(name);
+    //menu.setCurScore(a.score);
 }
 
 void Login::receiveMsg(QString name, QString pass)
@@ -99,6 +96,7 @@ void Login::receiveMsg(QString name, QString pass)
     if(info.addUser(name,pass))
     {
         QMessageBox::about(NULL,tr("提示"),tr("注册成功！  "));
+        lgon.close();
     }
     else
     {

@@ -15,9 +15,13 @@
         <file>art_2.png</file>
         <file>menuBg.jpg</file>
         <file>settingBg.jpg</file>
+        <file>help.jpg</file>
+        <file>ocean.jpg</file>
+        <file>wood.jpg</file>
     </qresource>
     <qresource prefix="/music">
-        <file>Saxophone.mp3</file>
         <file>xiaochu.MP3</file>
+        <file>Saxophone.mp3</file>
+        <file>BGmusic2.mp3</file>
     </qresource>
 </RCC>

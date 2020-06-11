@@ -22,8 +22,8 @@ QT_BEGIN_MOC_NAMESPACE
 QT_WARNING_PUSH
 QT_WARNING_DISABLE_DEPRECATED
 struct qt_meta_stringdata_UI_t {
-    QByteArrayData data[10];
-    char stringdata0[107];
+    QByteArrayData data[13];
+    char stringdata0[170];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -41,12 +41,16 @@ QT_MOC_LITERAL(5, 42, 8), // "iconSwap"
 QT_MOC_LITERAL(6, 51, 3), // "dir"
 QT_MOC_LITERAL(7, 55, 6), // "timeUp"
 QT_MOC_LITERAL(8, 62, 21), // "on_pushButton_clicked"
-QT_MOC_LITERAL(9, 84, 22) // "on_musicButton_clicked"
+QT_MOC_LITERAL(9, 84, 18), // "on_restart_clicked"
+QT_MOC_LITERAL(10, 103, 22), // "on_musicButton_clicked"
+QT_MOC_LITERAL(11, 126, 21), // "on_action_H_triggered"
+QT_MOC_LITERAL(12, 148, 21) // "on_HintButton_clicked"
 
     },
     "UI\0sendGameOver\0\0iconClicked\0iconReleased\0"
     "iconSwap\0dir\0timeUp\0on_pushButton_clicked\0"
-    "on_musicButton_clicked"
+    "on_restart_clicked\0on_musicButton_clicked\0"
+    "on_action_H_triggered\0on_HintButton_clicked"
 };
 #undef QT_MOC_LITERAL
 
@@ -56,7 +60,7 @@ static const uint qt_meta_data_UI[] = {
        8,       // revision
        0,       // classname
        0,    0, // classinfo
-       7,   14, // methods
+      10,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
@@ -64,15 +68,18 @@ static const uint qt_meta_data_UI[] = {
        1,       // signalCount
 
  // signals: name, argc, parameters, tag, flags
-       1,    1,   49,    2, 0x06 /* Public */,
+       1,    1,   64,    2, 0x06 /* Public */,
 
  // slots: name, argc, parameters, tag, flags
-       3,    0,   52,    2, 0x0a /* Public */,
-       4,    0,   53,    2, 0x0a /* Public */,
-       5,    1,   54,    2, 0x0a /* Public */,
-       7,    0,   57,    2, 0x0a /* Public */,
-       8,    0,   58,    2, 0x0a /* Public */,
-       9,    0,   59,    2, 0x08 /* Private */,
+       3,    0,   67,    2, 0x0a /* Public */,
+       4,    0,   68,    2, 0x0a /* Public */,
+       5,    1,   69,    2, 0x0a /* Public */,
+       7,    0,   72,    2, 0x0a /* Public */,
+       8,    0,   73,    2, 0x0a /* Public */,
+       9,    0,   74,    2, 0x0a /* Public */,
+      10,    0,   75,    2, 0x08 /* Private */,
+      11,    0,   76,    2, 0x08 /* Private */,
+      12,    0,   77,    2, 0x08 /* Private */,
 
  // signals: parameters
     QMetaType::Void, QMetaType::Int,    2,
@@ -81,6 +88,9 @@ static const uint qt_meta_data_UI[] = {
     QMetaType::Void,
     QMetaType::Void,
     QMetaType::Void, QMetaType::Int,    6,
+    QMetaType::Void,
+    QMetaType::Void,
+    QMetaType::Void,
     QMetaType::Void,
     QMetaType::Void,
     QMetaType::Void,
@@ -100,7 +110,10 @@ void UI::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, void **_
         case 3: _t->iconSwap((*reinterpret_cast< int(*)>(_a[1]))); break;
         case 4: _t->timeUp(); break;
         case 5: _t->on_pushButton_clicked(); break;
-        case 6: _t->on_musicButton_clicked(); break;
+        case 6: _t->on_restart_clicked(); break;
+        case 7: _t->on_musicButton_clicked(); break;
+        case 8: _t->on_action_H_triggered(); break;
+        case 9: _t->on_HintButton_clicked(); break;
         default: ;
         }
     } else if (_c == QMetaObject::IndexOfMethod) {
@@ -144,13 +157,13 @@ int UI::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 7)
+        if (_id < 10)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 7;
+        _id -= 10;
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
-        if (_id < 7)
+        if (_id < 10)
             *reinterpret_cast<int*>(_a[0]) = -1;
-        _id -= 7;
+        _id -= 10;
     }
     return _id;
 }
